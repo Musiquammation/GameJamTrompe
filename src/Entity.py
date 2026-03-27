@@ -11,14 +11,12 @@ class Entity:
 	y: float
 	vx = 0
 	vy = 0 
-	animations : list[Animation]
-	animation_index : int 
+	texture : pygame.Surface
 
-	def __init__(self, x: float, y: float, animations : list[Animation]):
+	def __init__(self, x: float, y: float, texture_path : str):
 		self.x = x
 		self.y = y
-		self.animations = animations
-		self.animation_index = 0
+		self.texture = pygame.image.load(texture_path)
 
 	def move(self, game: Game) :
 		self.x += self.vx
@@ -38,7 +36,4 @@ class Entity:
 		self.move(game)
 
 	def draw(self, screen : pygame.Surface, game: Game):
-		current_animation : Animation = self.animations[self.animation_index]
-		src_rect : pygame.Rect = current_animation.frames[current_animation.frame_index]
-
-		# screen.blit(current_animation.texture, (self.x + offset.x, self.y + offset.y), src_rect)
+		screen.blit(self.texture, (self.x, self.y))
