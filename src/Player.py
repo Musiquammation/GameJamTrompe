@@ -133,5 +133,3 @@ class Player(Entity):
 	def draw(self, screen: Surface, game: Game):
 		rect=game.toCamera(self.x, self.y, 0, SIZE, SIZE)
 		screen.fill(Color(255,255,0), rect)
-		pass
-	 
