@@ -9,6 +9,7 @@ if TYPE_CHECKING:
 class Entity:
 	x: float
 	y: float
+	z = 0
 	vx = 0
 	vy = 0 
 
@@ -26,8 +27,13 @@ class Entity:
 	def draw(self, screen : pygame.Surface, game: Game):
 		textureName = self.getTexture()
 		if textureName != None:
+			size = self.getSize()
 			texture = game.texture_loader.get_texture(textureName)
+			rect = game.toCamera(self.x, self.y, self.z, size[0], size[1])
 			screen.blit(texture, (self.x, self.y))
+
+	def getSize(self) -> tuple[int, int]:
+		return (32,32)
 
 	def getTexture(self) -> Optional[str]:
 		return None

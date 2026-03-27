@@ -126,6 +126,8 @@ class Player(Entity):
 		self.updateSpeed(game)
 		self.move(game)
 
-		
+	def getSize(self) -> tuple[int, int]:
+		return (32,32)
+
 	def getTexture(self) -> str | None:
 		return "assets/textures/elephant.png"
