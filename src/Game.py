@@ -43,10 +43,14 @@ class Game:
 
 	def update(self):
 		self.player.update(self)
+		self.player.move(self)
 		self.frameCount += 1
 
 		for monster in self.monsters:
 			monster.update(self)
+
+		for monster in self.monsters:
+			monster.move(self)
 
 		
 

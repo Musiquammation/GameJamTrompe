@@ -122,9 +122,9 @@ class Player(Entity):
 				self.vy += DECELERATION
 				if self.vy > 0:
 					self.vy = 0
+	
 	def update(self, game : Game):
 		self.updateSpeed(game)
-		self.move(game)
 
 	def getSize(self) -> tuple[int, int]:
 		return (32,32)
