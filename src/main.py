@@ -13,6 +13,8 @@ clock = pygame.time.Clock()
 
 running = True
 while running:
+	game.inputHandler.frame(game.camX, game.camY, game.camZ)
+
 	for event in pygame.event.get():
 		match event.type:
 			case pygame.QUIT:
@@ -25,10 +27,24 @@ while running:
 				game.inputHandler.removeKey(event.key)
 
 			case pygame.MOUSEBUTTONDOWN:
-				pass
-
+				if event.button == 1: # left
+					game.inputHandler.addKey(-1)
+				elif event.button == 3: # right
+					game.inputHandler.addKey(-3)
+				elif event.button == 2: # middle
+					game.inputHandler.addKey(-2)
+				
 			case pygame.MOUSEBUTTONUP:
-				pass
+				if event.button == 1: # left
+					game.inputHandler.removeKey(-1)
+				elif event.button == 3: # right
+					game.inputHandler.removeKey(-3)
+				elif event.button == 2: # middle
+					game.inputHandler.removeKey(-2)
+
+			case pygame.MOUSEMOTION:
+				game.inputHandler.appendMouse(event.pos[0], event.pos[1])
+
 
 	game.update()
 	game.draw(screen)

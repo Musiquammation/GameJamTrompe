@@ -4,13 +4,19 @@ KEYS_DICT = {
 	'left': [pygame.K_LEFT, pygame.K_q],
 	'right': [pygame.K_RIGHT, pygame.K_d],
 	'up': [pygame.K_UP, pygame.K_z],
-	'down': [pygame.K_DOWN, pygame.K_s]
+	'down': [pygame.K_DOWN, pygame.K_s],
+	'mouseLeft': [-1],
+	'mouseRight': [-2],
+	'mouseMiddle': [-3],
 }
 
 class InputHandler:
-	def __init__(self):
-		self._pressed_keys = set()
-		self._first_pressed_keys = set()
+	_mouseX = 0
+	_mouseY = 0
+	_gameMouseX = 0
+	_gameMouseY = 0
+	_pressed_keys = set()
+	_first_pressed_keys = set()
 
 	def addKey(self, key: int):
 		if key not in self._pressed_keys:
@@ -27,5 +33,14 @@ class InputHandler:
 	def isFirstPressed(self, key: str):
 		return any(k in self._first_pressed_keys for k in KEYS_DICT.get(key, []))
 
-	def frame(self):
+	def appendMouse(self, x: int, y: int):
+		self._mouseX = x
+		self._mouseY = y
+
+
+	def frame(self, camX: float, camY: float, camZ: float):
 		self._first_pressed_keys.clear()
+
+		self._gameMouseX = (self._mouseX - 400) * camZ + camX
+		self._gameMouseY = (self._mouseY - 225) * camZ + camY		
+		
