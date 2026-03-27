@@ -16,13 +16,10 @@ while running:
 				running = False
 
 			case pygame.KEYDOWN:
-				# print(event.key)
-				pass
-				# game.inputHandler.addKey(event.key)
+				game.inputHandler.addKey(event.key)
 
 			case pygame.KEYUP:
-				# game.inputHandler.removeKey(event.key)
-				pass
+				game.inputHandler.removeKey(event.key)
 
 			case pygame.MOUSEBUTTONDOWN:
 				# print(f"Souris cliquée : {event.button} en {event.pos}")

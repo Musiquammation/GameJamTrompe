@@ -4,7 +4,7 @@ from InputHandler import InputHandler
 
 class Game:
 	player = Player(0,0)
-	inputHandler = InputHandler
+	inputHandler = InputHandler()
 	frameCount = 0
 
 	def __init__(self):
