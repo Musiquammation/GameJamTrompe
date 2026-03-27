@@ -22,6 +22,7 @@ while running:
 
 			case pygame.KEYUP:
 				# game.inputHandler.removeKey(event.key)
+				pass
 
 			case pygame.MOUSEBUTTONDOWN:
 				# print(f"Souris cliquée : {event.button} en {event.pos}")
