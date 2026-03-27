@@ -1,4 +1,4 @@
-from Entity import Entity
+from Monster import Monster
 
-class TestMonster(Entity):
+class TestMonster(Monster):
 	pass

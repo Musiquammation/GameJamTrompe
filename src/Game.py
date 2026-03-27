@@ -14,7 +14,7 @@ class Game:
 	def __init__(self):
 		self.screen_width = 800
 		self.screen_height = 450
-		self.player = Player(0, 0, "")
+		self.player = Player(0, 0)
 		self.monsters : list[Monster] = []
 		self.inputHandler = InputHandler()
 		self.frameCount = 0
@@ -25,7 +25,7 @@ class Game:
 
 
 	def test(self):
-		self.monsters.append(TestMonster(0, 0, []))
+		self.monsters.append(TestMonster(0, 0))
 
 	def toCamera(self, x, y, z, w, h):
 		dz = self.camZ - z

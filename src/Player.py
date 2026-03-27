@@ -127,9 +127,5 @@ class Player(Entity):
 		self.move(game)
 
 		
-				
-
-
-	def draw(self, screen: Surface, game: Game):
-		rect=game.toCamera(self.x, self.y, 0, SIZE, SIZE)
-		screen.fill(Color(255,255,0), rect)
+	def getTexture(self) -> str | None:
+		return "/assets/textures/elephant.png"
