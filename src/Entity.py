@@ -30,7 +30,7 @@ class Entity:
 			size = self.getSize()
 			texture = game.texture_loader.get_texture(textureName)
 			rect = game.toCamera(self.x, self.y, self.z, size[0], size[1])
-			screen.blit(texture, (self.x, self.y))
+			screen.blit(texture, rect)
 
 	def getSize(self) -> tuple[int, int]:
 		return (32,32)
