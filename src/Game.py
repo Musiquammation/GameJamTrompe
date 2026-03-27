@@ -16,11 +16,8 @@ class Game:
     def update(self):
         self.player.update(self)
         
-        target_x = self.player.rect.centerx - self.screen_width // 2
-        target_y = self.player.rect.centery - self.screen_height // 2
-        
-        self.camera_offset.x += (target_x - self.camera_offset.x) * 0.1
-        self.camera_offset.y += (target_y - self.camera_offset.y) * 0.1
+        self.camera_offset.x += (self.player.x - self.camera_offset.x) * 0.1
+        self.camera_offset.y += (self.player.y - self.camera_offset.y) * 0.1
         
         self.frameCount += 1
 
