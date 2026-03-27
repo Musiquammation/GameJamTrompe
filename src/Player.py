@@ -8,9 +8,9 @@ if TYPE_CHECKING:
 	from Game import Game
 
 
-ACCELERATION = 2
-ACC_REVERSE = 1
-SLOW_DOWN = 1
+ACCELERATION = 1
+ACC_REVERSE = 2
+SLOW_DOWN = .1
 DECELERATION = 3
 
 SIZE=32
@@ -21,6 +21,8 @@ class Player(Entity):
 	def updateSpeed(self, game: Game):
 		pressLeft = game.inputHandler.isPressed('left')
 		pressRight = game.inputHandler.isPressed('right')
+		pressUp = game.inputHandler.isPressed('up')
+		pressDown = game.inputHandler.isPressed('down')
 
 		if pressRight:
 			max_speed = self.maxSpeed
@@ -71,8 +73,55 @@ class Player(Entity):
 				if self.vx > 0:
 					self.vx = 0
 				
-		print(self.vx)
 
+		if pressDown:
+			max_speed = self.maxSpeed
+			vy = self.vy
+
+			if vy > max_speed:
+				vy -= SLOW_DOWN
+				if vy < max_speed:
+					vy = max_speed
+			else:
+				if vy < 0:
+					vy += ACC_REVERSE
+				else:
+					vy += ACCELERATION
+
+				if vy > max_speed:
+					vy = max_speed
+
+			self.vy = vy
+
+		elif pressUp:
+			max_speed = -self.maxSpeed
+			vy = self.vy
+
+			if vy < max_speed:
+				vy += SLOW_DOWN
+				if vy > max_speed:
+					vy = max_speed
+			else:
+				if vy > 0:
+					vy -= ACC_REVERSE
+				else:
+					vy -= ACCELERATION
+
+				if vy < max_speed:
+					vy = max_speed
+
+			self.vy = vy
+
+		else:
+			if self.vy > 0:
+				self.vy -= DECELERATION
+				if self.vy < 0:
+					self.vy = 0
+
+			elif self.vy < 0:
+				self.vy += DECELERATION
+				if self.vy > 0:
+					self.vy = 0
 	def update(self, game : Game):
 		self.updateSpeed(game)
 		self.move(game)

@@ -2,7 +2,7 @@ import pygame
 
 KEYS_DICT = {
 	'left': [pygame.K_LEFT, pygame.K_q],
-	'right': [pygame.K_RIGHT, pygame.K_r],
+	'right': [pygame.K_RIGHT, pygame.K_d],
 	'up': [pygame.K_UP, pygame.K_z],
 	'down': [pygame.K_DOWN, pygame.K_s]
 }
