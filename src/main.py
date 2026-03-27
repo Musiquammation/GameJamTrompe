@@ -30,6 +30,7 @@ while running:
 				pass
 
 
+	game.update()
 	game.draw(screen)    
 	pygame.display.flip()
 
