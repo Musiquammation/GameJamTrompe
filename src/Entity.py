@@ -22,7 +22,7 @@ class Entity:
 		self.y += self.vy
 
 	def update(self, game : Game):
-		self.move(game)
+		pass
 
 	def draw(self, screen : pygame.Surface, game: Game):
 		textureName = self.getTexture()
