@@ -31,7 +31,7 @@ class Entity:
 		if self.animation_index < len(self.animations):
 			self.animations[self.animation_index].update(game)
 
-		self.move()
+		self.move(game)
 
 	def draw(self, screen : pygame.Surface):
 		current_animation : Animation = self.animations[self.animation_index]
