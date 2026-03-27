@@ -1,10 +1,11 @@
 from __future__ import annotations
+from typing import TYPE_CHECKING
+
 import pygame
 from pygame import Surface
 from Player import Player
 from monsters.TestMonster import TestMonster
 from InputHandler import InputHandler
-from typing import TYPE_CHECKING
 from TextureLoader import TextureLoader
 from random import randint
 
@@ -65,3 +66,6 @@ class Game:
 
 		for monster in self.monsters:
 			monster.draw(screen, self)
+
+		self.player.lasso.draw(screen, self)
+

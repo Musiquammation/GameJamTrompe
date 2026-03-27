@@ -5,16 +5,16 @@ KEYS_DICT = {
 	'right': [pygame.K_RIGHT, pygame.K_d],
 	'up': [pygame.K_UP, pygame.K_z],
 	'down': [pygame.K_DOWN, pygame.K_s],
-	'mouseLeft': [-1],
-	'mouseRight': [-2],
-	'mouseMiddle': [-3],
+	'mouse-left': [-1],
+	'mouse-right': [-2],
+	'mouse-middle': [-3],
 }
 
 class InputHandler:
 	_mouseX = 0
 	_mouseY = 0
-	_gameMouseX = 0
-	_gameMouseY = 0
+	_gameMouseX: float = 0
+	_gameMouseY: float = 0
 	_pressed_keys = set()
 	_first_pressed_keys = set()
 
@@ -37,6 +37,8 @@ class InputHandler:
 		self._mouseX = x
 		self._mouseY = y
 
+	def getGameMouse(self):
+		return (self._gameMouseX, self._gameMouseY)
 
 	def frame(self, camX: float, camY: float, camZ: float):
 		self._first_pressed_keys.clear()

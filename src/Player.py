@@ -3,6 +3,7 @@ from __future__ import annotations
 from pygame import Surface, Color
 from typing import TYPE_CHECKING
 from Entity import Entity
+from Lasso import Lasso
 
 if TYPE_CHECKING:
 	from Game import Game
@@ -17,6 +18,7 @@ SIZE=32
 
 class Player(Entity):
 	maxSpeed = 10
+	lasso = Lasso()
 
 	def updateSpeed(self, game: Game):
 		pressLeft = game.inputHandler.isPressed('left')
@@ -122,9 +124,27 @@ class Player(Entity):
 				self.vy += DECELERATION
 				if self.vy > 0:
 					self.vy = 0
-	
+
+
+	def addLasso(self, game: Game):
+		if self.lasso.increasing:
+			if game.inputHandler.isPressed('mouse-left'):
+				self.lasso.points.append(game.inputHandler.getGameMouse())
+			elif len(self.lasso.points) > 0:
+				self.lasso.increasing = False
+		
+		else:
+			self.lasso.points.pop()
+			if len(self.lasso.points) == 0:
+				self.lasso.increasing = True
+
+			
+
+
+
 	def update(self, game : Game):
 		self.updateSpeed(game)
+		self.addLasso(game)
 
 	def getSize(self) -> tuple[int, int]:
 		return (32,32)
