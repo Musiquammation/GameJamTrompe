@@ -8,6 +8,8 @@ pygame.display.set_caption("GameJam")
 
 game = Game()
 
+clock = pygame.time.Clock()  # <-- AJOUT
+
 running = True
 while running:
 	for event in pygame.event.get():
@@ -22,18 +24,15 @@ while running:
 				game.inputHandler.removeKey(event.key)
 
 			case pygame.MOUSEBUTTONDOWN:
-				# print(f"Souris cliquée : {event.button} en {event.pos}")
 				pass
 
 			case pygame.MOUSEBUTTONUP:
-				# print(f"Souris relâchée : {event.button} en {event.pos}")
 				pass
 
-
 	game.update()
-	game.draw(screen)    
+	game.draw(screen)
 	pygame.display.flip()
 
+	clock.tick(60)
+
 pygame.quit()
-
-

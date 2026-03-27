@@ -16,11 +16,9 @@ DECELERATION = 3
 SIZE=32
 
 class Player(Entity):
-	maxSpeed = 100
+	maxSpeed = 10
 
-	def update(self, game : Game):
-		# Handle speed logic
-
+	def updateSpeed(self, game: Game):
 		pressLeft = game.inputHandler.isPressed('left')
 		pressRight = game.inputHandler.isPressed('right')
 
@@ -67,12 +65,19 @@ class Player(Entity):
 				self.vx -= DECELERATION
 				if self.vx < 0:
 					self.vx = 0
-					
+
 			elif self.vx < 0:
 				self.vx += DECELERATION
 				if self.vx > 0:
 					self.vx = 0
 				
+		print(self.vx)
+
+	def update(self, game : Game):
+		self.updateSpeed(game)
+		self.move(game)
+
+		
 				
 
 
