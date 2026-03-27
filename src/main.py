@@ -3,7 +3,7 @@ from Game import Game
 
 pygame.init()
 
-screen = pygame.display.set_mode((1600, 900))
+screen = pygame.display.set_mode((800, 450))
 pygame.display.set_caption("GameJam")
 
 game = Game()
