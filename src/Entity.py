@@ -5,6 +5,8 @@ from Animation import Animation
 class Entity:
 	x: float
 	y: float
+	vx = 0
+	vy = 0 
 	animations : list[Animation]
 	animation_index : int 
 
@@ -14,9 +16,9 @@ class Entity:
 		self.animations = animations
 		self.animation_index = 0
 
-	def move(self, dx : float, dy : float) :
-		self.x += dx
-		self.y += dy
+	def move(self) :
+		self.x += self.vx
+		self.y += self.vy
 
 	def set_current_animation(self, animation_name : str):
 		for i in range(len(self.animations)):
