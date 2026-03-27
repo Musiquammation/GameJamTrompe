@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from pygame import Surface
+from pygame import Surface, Color
 from typing import TYPE_CHECKING
 from Entity import Entity
 
@@ -25,4 +25,7 @@ class Player(Entity):
 		# if self.vx < 0:
 
 
+	def draw(self, screen: Surface):
+		screen.fill(color=Color(255,255,255), rect=(200,200,300,1001))
+		pass
 	 
