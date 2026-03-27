@@ -13,5 +13,8 @@ class Animation:
         self.fps = fps
         self.name = name
 
+    def reset(self):
+        self.frame_index = 0
+
     def update(self, game : Game):
         pass
