@@ -41,4 +41,4 @@ class Entity:
 		current_animation : Animation = self.animations[self.animation_index]
 		src_rect : pygame.Rect = current_animation.frames[current_animation.frame_index]
 
-		# screen.blit(current_animation.texture, (self.x, self), src_rect)
+		screen.blit(current_animation.texture, (self.x, self), src_rect)

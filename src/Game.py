@@ -16,6 +16,7 @@ class Game:
 
 	def draw(self, screen: Surface):
 		screen.fill((0, 0, 0))
+		self.player.draw(screen)
 		
 	def update(self):
 		self.player.update(self)
