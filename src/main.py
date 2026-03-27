@@ -11,8 +11,26 @@ game = Game()
 running = True
 while running:
 	for event in pygame.event.get():
-		if event.type == pygame.QUIT:
-			running = False
+		match event.type:
+			case pygame.QUIT:
+				running = False
+
+			case pygame.KEYDOWN:
+				# print(event.key)
+				pass
+				# game.inputHandler.addKey(event.key)
+
+			case pygame.KEYUP:
+				# game.inputHandler.removeKey(event.key)
+
+			case pygame.MOUSEBUTTONDOWN:
+				# print(f"Souris cliquée : {event.button} en {event.pos}")
+				pass
+
+			case pygame.MOUSEBUTTONUP:
+				# print(f"Souris relâchée : {event.button} en {event.pos}")
+				pass
+
 
 	game.draw(screen)    
 	pygame.display.flip()
