@@ -7,7 +7,7 @@ class Monster(Entity):
     def update(self, game : Game):
         super()
 
-        direction : pygame.Vector2 = -(self.x, self.y) + (game.player.x, game.player.y)
+        direction : pygame.Vector2 = -pygame.Vector2(self.x, self.y) + pygame.Vector2(game.player.x, game.player.y)
         direction.normalize()
 
         self.vx = direction.x
