@@ -6,6 +6,7 @@ from monsters.TestMonster import TestMonster
 from InputHandler import InputHandler
 from typing import TYPE_CHECKING
 from TextureLoader import TextureLoader
+from random import randint
 
 if TYPE_CHECKING:
 	from Monster import Monster
@@ -25,7 +26,8 @@ class Game:
 
 
 	def runTest(self):
-		self.monsters.append(TestMonster(0, 0))
+		for i in range(50):
+			self.monsters.append(TestMonster(randint(-1000,1000), randint(-1000,1000)))
 
 	def toCamera(self, x, y, z, w, h):
 		dz = self.camZ - z
