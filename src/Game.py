@@ -5,6 +5,7 @@ from Player import Player
 from monsters.TestMonster import TestMonster
 from InputHandler import InputHandler
 from typing import TYPE_CHECKING
+from TextureLoader import TextureLoader
 
 if TYPE_CHECKING:
 	from Monster import Monster
@@ -20,6 +21,7 @@ class Game:
 		self.camX = 0
 		self.camY = 0
 		self.camZ = 1
+		self.texture_loader = TextureLoader()
 
 
 	def test(self):
