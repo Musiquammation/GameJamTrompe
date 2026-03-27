@@ -22,10 +22,10 @@ class Game:
 
 		scale = 1 / dz
 
-		screen_x = (x - self.camX) * scale + 400
-		screen_y = (y - self.camY) * scale + 225
 		screen_w = w * scale
 		screen_h = h * scale
+		screen_x = (x - self.camX) * scale + 400 - screen_w/2
+		screen_y = (y - self.camY) * scale + 225 - screen_h/2
 
 		return pygame.Rect(int(screen_x), int(screen_y), int(screen_w), int(screen_h))
 
