@@ -1,4 +1,4 @@
-from pygame import Surface
+import pygame
 from Game import Game
 from Animation import Animation
 
@@ -31,5 +31,10 @@ class Entity:
 		if self.animation_index < len(self.animations):
 			self.animations[self.animation_index].update(game)
 
-	def draw(self, screen : Surface):
-		pass
+		self.move()
+
+	def draw(self, screen : pygame.Surface):
+		current_animation : Animation = self.animations[self.animation_index]
+		src_rect : pygame.Rect = current_animation.frames[current_animation.frame_index]
+
+		screen.blit(current_animation.texture, (self.x, self), src_rect)
