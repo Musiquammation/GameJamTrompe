@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from pygame import Surface, Color, Vector2
+from pygame import Surface, Color
 from typing import TYPE_CHECKING
 from Entity import Entity
 
@@ -130,8 +130,8 @@ class Player(Entity):
 				
 
 
-	def draw(self, screen: Surface, offset : Vector2 = (0,0)):
-		rect=(self.x - offset.x - SIZE/2, self.y - offset.y - SIZE/2 , SIZE, SIZE)
+	def draw(self, screen: Surface, game: Game):
+		rect=game.toCamera(self.x, self.y, 0, SIZE, SIZE)
 		screen.fill(Color(255,255,0), rect)
 		pass
 	 

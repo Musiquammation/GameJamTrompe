@@ -37,8 +37,8 @@ class Entity:
 
 		self.move(game)
 
-	def draw(self, screen : pygame.Surface, offset : pygame.Vector2 = (0,0)):
+	def draw(self, screen : pygame.Surface, game: Game):
 		current_animation : Animation = self.animations[self.animation_index]
 		src_rect : pygame.Rect = current_animation.frames[current_animation.frame_index]
 
-		screen.blit(current_animation.texture, (self.x + offset.x, self.y + offset.y), src_rect)
+		# screen.blit(current_animation.texture, (self.x + offset.x, self.y + offset.y), src_rect)
