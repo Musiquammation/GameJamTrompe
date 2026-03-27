@@ -29,7 +29,13 @@ class Entity:
 		if textureName != None:
 			size = self.getSize()
 			texture = game.texture_loader.get_texture(textureName)
-			rect = game.toCamera(self.x, self.y, self.z, size[0], size[1])
+			w = size[0]
+			h = size[1]
+
+			rect = game.toCamera(self.x, self.y, self.z, w, h)
+			if texture.get_width() != w or texture.get_height() != h:
+				texture = pygame.transform.scale(texture, (w, h))
+
 			screen.blit(texture, rect)
 
 	def getSize(self) -> tuple[int, int]:
