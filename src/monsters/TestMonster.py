@@ -1,4 +1,4 @@
 from Entity import Entity
 
-class TestEntity(Entity):
+class TestMonster(Entity):
 	pass

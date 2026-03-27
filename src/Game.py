@@ -2,6 +2,7 @@ from __future__ import annotations
 import pygame
 from pygame import Surface
 from Player import Player
+from monsters.TestMonster import TestMonster
 from InputHandler import InputHandler
 from typing import TYPE_CHECKING
 
@@ -22,7 +23,7 @@ class Game:
 
 
 	def test(self):
-		self.monsters.append(Monster(0, 0, []))
+		self.monsters.append(TestMonster(0, 0, []))
 
 	def toCamera(self, x, y, z, w, h):
 		dz = self.camZ - z
