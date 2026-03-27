@@ -1,5 +1,5 @@
 from __future__ import annotations
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Optional
 import pygame
 
 if TYPE_CHECKING:
@@ -11,12 +11,10 @@ class Entity:
 	y: float
 	vx = 0
 	vy = 0 
-	texture : pygame.Surface
 
-	def __init__(self, x: float, y: float, texture_path : str):
+	def __init__(self, x: float, y: float):
 		self.x = x
 		self.y = y
-		self.texture = pygame.image.load(texture_path)
 
 	def move(self, game: Game) :
 		self.x += self.vx
@@ -26,4 +24,10 @@ class Entity:
 		self.move(game)
 
 	def draw(self, screen : pygame.Surface, game: Game):
-		screen.blit(self.texture, (self.x, self.y))
+		textureName = self.getTexture()
+		if textureName != None:
+			texture = game.texture_loader.get_texture(textureName)
+			screen.blit(texture, (self.x, self.y))
+
+	def getTexture(self) -> Optional[str]:
+		return None

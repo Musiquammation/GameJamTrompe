@@ -125,3 +125,7 @@ class Player(Entity):
 	def update(self, game : Game):
 		self.updateSpeed(game)
 		self.move(game)
+
+		
+	def getTexture(self) -> str | None:
+		return "/assets/textures/elephant.png"

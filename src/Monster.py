@@ -1,9 +1,13 @@
+from __future__ import annotations
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+	from Game import Game
+
 import pygame
-from Game import Game
 from Entity import Entity
 
 class Monster(Entity):
-    
     def update(self, game : Game):
         super()
 
