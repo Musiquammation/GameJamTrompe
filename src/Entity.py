@@ -24,12 +24,12 @@ class Entity:
 		for i in range(len(self.animations)):
 			if self.animations[i].name == animation_name :
 				self.animation_index = i
-
-				
+				self.animations[self.animation_index].frame_index = 0
 				return
 	
 	def update(self, game : Game):
-		pass
+		if self.animation_index < len(self.animations):
+			self.animations[self.animation_index].update(game)
 
 	def draw(self, screen : Surface):
 		pass
