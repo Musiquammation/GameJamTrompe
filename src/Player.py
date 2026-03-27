@@ -125,11 +125,3 @@ class Player(Entity):
 	def update(self, game : Game):
 		self.updateSpeed(game)
 		self.move(game)
-
-		
-				
-
-
-	def draw(self, screen: Surface, game: Game):
-		rect=game.toCamera(self.x, self.y, 0, SIZE, SIZE)
-		screen.fill(Color(255,255,0), rect)

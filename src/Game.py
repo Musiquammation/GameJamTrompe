@@ -14,7 +14,7 @@ class Game:
 	def __init__(self):
 		self.screen_width = 800
 		self.screen_height = 450
-		self.player = Player(0, 0, "")
+		self.player = Player(0, 0, "assets/textures/elephant.png")
 		self.monsters : list[Monster] = []
 		self.inputHandler = InputHandler()
 		self.frameCount = 0
