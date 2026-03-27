@@ -13,7 +13,7 @@ class Monster(Entity):
 
         direction : pygame.Vector2 = -pygame.Vector2(self.x, self.y) + pygame.Vector2(game.player.x, game.player.y)
         if direction.length_squared() > 0:
-            direction.normalize()
+            direction = direction.normalize()
 
         self.vx = direction.x
         self.vy = direction.y
