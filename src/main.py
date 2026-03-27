@@ -7,8 +7,9 @@ screen = pygame.display.set_mode((800, 450))
 pygame.display.set_caption("Trompe them up")
 
 game = Game()
+game.runTest()
 
-clock = pygame.time.Clock()  # <-- AJOUT
+clock = pygame.time.Clock()
 
 running = True
 while running:

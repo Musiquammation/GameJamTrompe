@@ -24,7 +24,7 @@ class Game:
 		self.texture_loader = TextureLoader()
 
 
-	def test(self):
+	def runTest(self):
 		self.monsters.append(TestMonster(0, 0))
 
 	def toCamera(self, x, y, z, w, h):
