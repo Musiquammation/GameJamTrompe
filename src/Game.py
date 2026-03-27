@@ -20,6 +20,10 @@ class Game:
 		self.camY = 0
 		self.camZ = 1
 
+
+	def test(self):
+		self.monsters.append(Monster(0, 0, []))
+
 	def toCamera(self, x, y, z, w, h):
 		dz = self.camZ - z
 		if dz <= 0:
@@ -41,7 +45,12 @@ class Game:
 		for monster in self.monsters:
 			monster.update(self)
 
+		
+
 	def draw(self, screen: Surface):
+		self.camX = self.player.x
+		self.camY = self.player.y
+
 		screen.fill((0, 0, 0))
 		self.player.draw(screen, self)
 
