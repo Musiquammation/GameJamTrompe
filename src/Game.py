@@ -3,12 +3,17 @@ import pygame
 from pygame import Surface
 from Player import Player
 from InputHandler import InputHandler
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+	from Monster import Monster
 
 class Game:
 	def __init__(self):
 		self.screen_width = 800
 		self.screen_height = 450
 		self.player = Player(0, 0, [])
+		self.monsters : list[Monster] = []
 		self.inputHandler = InputHandler()
 		self.frameCount = 0
 		self.camX = 0
@@ -33,6 +38,12 @@ class Game:
 		self.player.update(self)
 		self.frameCount += 1
 
+		for monster in self.monsters:
+			monster.update(self)
+
 	def draw(self, screen: Surface):
 		screen.fill((0, 0, 0))
 		self.player.draw(screen, self)
+
+		for monster in self.monsters:
+			monster.draw(screen, self)
