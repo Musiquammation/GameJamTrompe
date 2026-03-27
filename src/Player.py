@@ -11,6 +11,7 @@ if TYPE_CHECKING:
 ACCELERATION = 120
 DECELERATION = 60
 STOP = 180
+SIZE=32
 
 class Player(Entity):
 	maxSpeed = 100
@@ -26,6 +27,7 @@ class Player(Entity):
 
 
 	def draw(self, screen: Surface):
-		screen.fill(color=Color(255,255,255), rect=(200,200,300,1001))
+		rect=(self.x - SIZE/2, self.y - SIZE/2 , SIZE, SIZE)
+		screen.fill(Color(255,255,0), rect)
 		pass
 	 
