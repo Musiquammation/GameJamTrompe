@@ -22,17 +22,7 @@ class Entity:
 		self.x += self.vx
 		self.y += self.vy
 
-	def set_current_animation(self, animation_name : 'str'):
-		for i in range(len(self.animations)):
-			if self.animations[i].name == animation_name :
-				self.animation_index = i
-				self.animations[self.animation_index].frame_index = 0
-				return
-	
 	def update(self, game : Game):
-		if self.animation_index < len(self.animations):
-			self.animations[self.animation_index].update(game)
-
 		self.move(game)
 
 	def draw(self, screen : pygame.Surface, game: Game):
