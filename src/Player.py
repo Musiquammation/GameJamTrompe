@@ -128,4 +128,4 @@ class Player(Entity):
 
 		
 	def getTexture(self) -> str | None:
-		return "/assets/textures/elephant.png"
+		return "assets/textures/elephant.png"
