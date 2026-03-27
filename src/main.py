@@ -1,17 +1,20 @@
 import pygame
+from Game import Game
 
 pygame.init()
 
-screen = pygame.display.set_mode((800, 600))
-pygame.display.set_caption("Test Pygame")
+screen = pygame.display.set_mode((1600, 900))
+pygame.display.set_caption("GameJam")
+
+game = Game()
 
 running = True
 while running:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
+	for event in pygame.event.get():
+		if event.type == pygame.QUIT:
+			running = False
 
-    screen.fill((0, 0, 0))
-    pygame.display.flip()
+	game.draw(screen)    
+	pygame.display.flip()
 
 pygame.quit()
