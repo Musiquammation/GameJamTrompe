@@ -1,6 +1,10 @@
+from __future__ import annotations
+from typing import TYPE_CHECKING
 import pygame
-from Game import Game
-from Animation import Animation
+
+if TYPE_CHECKING:
+	from Game import Game
+	from Animation import Animation
 
 class Entity:
 	x: float
@@ -37,4 +41,4 @@ class Entity:
 		current_animation : Animation = self.animations[self.animation_index]
 		src_rect : pygame.Rect = current_animation.frames[current_animation.frame_index]
 
-		screen.blit(current_animation.texture, (self.x, self), src_rect)
+		# screen.blit(current_animation.texture, (self.x, self), src_rect)

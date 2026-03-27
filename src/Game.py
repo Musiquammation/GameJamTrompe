@@ -1,6 +1,10 @@
+from __future__ import annotations
+
 from pygame import Surface
+from typing import TYPE_CHECKING
 from Player import Player
 from InputHandler import InputHandler
+
 
 class Game:
 	player = Player(0,0,[])

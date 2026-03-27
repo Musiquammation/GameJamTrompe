@@ -1,5 +1,12 @@
+from __future__ import annotations
+
+from pygame import Surface
+from typing import TYPE_CHECKING
 from Entity import Entity
-from Game import Game
+
+if TYPE_CHECKING:
+	from Game import Game
+
 
 ACCELERATION = 120
 DECELERATION = 60
