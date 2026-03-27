@@ -16,11 +16,11 @@ class Entity:
 		self.animations = animations
 		self.animation_index = 0
 
-	def move(self) :
+	def move(self, game: Game) :
 		self.x += self.vx
 		self.y += self.vy
 
-	def set_current_animation(self, animation_name : str):
+	def set_current_animation(self, animation_name : 'str'):
 		for i in range(len(self.animations)):
 			if self.animations[i].name == animation_name :
 				self.animation_index = i
