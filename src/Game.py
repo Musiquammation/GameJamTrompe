@@ -14,4 +14,4 @@ class Game:
 		screen.fill((0, 0, 0))
 		
 	def update(self):
-		self.player.update()
+		self.player.update(self)
