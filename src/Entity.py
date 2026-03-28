@@ -60,17 +60,20 @@ class Entity:
 
 	def draw(self, screen : pygame.Surface, game: Game):
 		textureName = self.getTexture()
-		if textureName != None:
-			size = self.getSize()
-			texture = game.texture_loader.get_texture(textureName)
-			w = size[0]
-			h = size[1]
+		if textureName == None:
+			return
+		
+		size = self.getSize()
+		texture = game.texture_loader.get_texture(textureName)
+		w = size[0]
+		h = size[1]
 
-			rect = game.toCamera(self.x, self.y, self.z, w, h)
-			if texture.get_width() != w or texture.get_height() != h:
-				texture = pygame.transform.scale(texture, (w, h))
+		rect = game.toCamera(self.x, self.y, self.z, w, h)
+		if texture.get_width() != w or texture.get_height() != h:
+			texture = pygame.transform.scale(texture, (w, h))
 
-			screen.blit(texture, rect)
+		screen.blit(texture, rect)
+
 
 	def hit(self, damages: float) -> bool:
 		return True # still alive
