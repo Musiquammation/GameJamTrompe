@@ -2,6 +2,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, Optional
 import pygame
 import LAVASTATS
+from GAMESIZE import GAMESIZE
 
 
 if TYPE_CHECKING:
@@ -22,6 +23,16 @@ class Entity:
 	def move(self, game: Game):
 		self.x += self.vx
 		self.y += self.vy
+		if self.x < -GAMESIZE.x:
+			self.x = -GAMESIZE.x
+		elif self.x > GAMESIZE.x:
+			self.x = GAMESIZE.x
+
+		if self.y < -GAMESIZE.y:
+			self.y = -GAMESIZE.y
+		elif self.y > GAMESIZE.y:
+			self.y = GAMESIZE.y
+
 		self.checkLava(game)
 
 
