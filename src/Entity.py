@@ -68,7 +68,12 @@ class Entity:
 			return
 		
 		size = self.getSize()
-		texture = game.texture_loader.get_texture(textureName)
+
+		if self.vx < 0:
+			texture = game.texture_loader.getFlippedTexture(textureName)
+		else:
+			texture = game.texture_loader.getTexture(textureName)
+			
 		w = size[0]
 		h = size[1]
 
@@ -86,7 +91,7 @@ class Entity:
 			return
 		
 		size = self.getSize()
-		texture = game.texture_loader.get_texture(textureName)
+		texture = game.texture_loader.getTexture(textureName)
 		w = size[0]
 		h = size[1]
 
