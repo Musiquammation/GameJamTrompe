@@ -73,6 +73,7 @@ class Entity:
 			texture = pygame.transform.scale(texture, (w, h))
 
 		screen.blit(texture, rect)
+		self.drawHp(screen, rect)
 
 
 	def drawWithIcon(self, screen: pygame.Surface, game: Game):
@@ -92,21 +93,61 @@ class Entity:
 		# check if rect is in screen
 		rw2 = int((rect.right - rect.left)/2)
 		rh2 = int((rect.bottom - rect.top)/2)
+
+		notEdited = True
 		
 		# fix rect in border
 		if rect.right < rw2:
 			rect.left = -rw2
+			notEdited = False
 		elif rect.left > game.screen_width - rw2:
 			rect.left = game.screen_width - rw2
+			notEdited = False
 
 		if rect.bottom < rh2:
 			rect.top = -rh2
+			notEdited = False
 		elif rect.top > game.screen_height - rh2:
 			rect.top = game.screen_height - rh2
+			notEdited = False
 
 		screen.blit(texture, rect)
 
-		
+		if notEdited:
+			self.drawHp(screen, rect)
+
+	def drawHp(self, screen: pygame.Surface, rect: pygame.Rect):
+		HP_BAR_DISTANCE = 10
+		HP_BAR_HEIGHT = 7
+		HP_BAR_PADDING = 1
+		SIZE_INC = 1.2
+
+		hp = self.getHp()
+		if hp is None:
+			return
+
+		current, maximum = hp
+
+		# Calcul du rectangle blanc (fond)
+		white_rect_width = rect.width * 2
+		white_rect_height = HP_BAR_HEIGHT
+		white_rect_x = rect.centerx - white_rect_width // 2
+		white_rect_y = rect.top - HP_BAR_DISTANCE - white_rect_height
+
+		white_rect = pygame.Rect(white_rect_x, white_rect_y, white_rect_width, white_rect_height)
+		pygame.draw.rect(screen, (255, 255, 255), white_rect)
+
+		# Calcul du rectangle rouge (HP)
+		hp_ratio = max(0, min(1, current / maximum))
+		red_rect_width = int((white_rect_width - SIZE_INC * HP_BAR_PADDING) * hp_ratio)
+		red_rect_height = HP_BAR_HEIGHT - SIZE_INC * HP_BAR_PADDING
+		red_rect_x = white_rect_x + HP_BAR_PADDING
+		red_rect_y = white_rect_y + HP_BAR_PADDING
+
+		red_rect = pygame.Rect(red_rect_x, red_rect_y, red_rect_width, red_rect_height)
+		pygame.draw.rect(screen, self.getHpColor(), red_rect)
+
+
 
 	def hit(self, damages: float) -> bool:
 		return True # still alive
@@ -120,6 +161,9 @@ class Entity:
 	def getHp(self) -> Optional[tuple[float,float]]:
 		return None
 	
+	def getHpColor(self) -> pygame.Color:
+		return pygame.Color(255,0,63)
+
 	def isAlive(self) -> bool:
 		hp = self.getHp()
 		if hp:

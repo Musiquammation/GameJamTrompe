@@ -1,6 +1,8 @@
 from __future__ import annotations
 from typing import TYPE_CHECKING
 
+from pygame.color import Color as Color
+
 from Entity import Entity
 from pygame import Surface, Vector2
 
@@ -10,7 +12,7 @@ if TYPE_CHECKING:
 
 
 
-CHEESE_HP = 300
+CHEESE_HP = 1000
 SPEED_REDUCE = .3
 
 class Cheese(Entity):
@@ -40,3 +42,6 @@ class Cheese(Entity):
 
 	def draw(self, screen: Surface, game: Game):
 		return super().drawWithIcon(screen, game)
+
+	def getHpColor(self) -> Color:
+		return Color(0, 255, 0)

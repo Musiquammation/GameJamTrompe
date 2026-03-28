@@ -30,3 +30,5 @@ class Lava(Entity):
 	def draw(self, screen: pygame.Surface, game: Game):
 		super().drawWithIcon(screen, game)
 
+	def getHpColor(self) -> pygame.Color:
+		return pygame.Color(255, 255, 0)
