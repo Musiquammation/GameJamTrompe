@@ -4,6 +4,7 @@ from typing import TYPE_CHECKING, Optional
 from pygame import Surface, Color
 from Entity import Entity
 from Lasso import Lasso
+from Cheese import CHEESE_HP
 from math import sqrt
 
 if TYPE_CHECKING:
@@ -19,6 +20,7 @@ CHEESE_RANGE = 140
 CHEESE_FIX_RANGE = 40
 ASPIRATION_SPEED = .4
 MOUSE_DAMAGE = 8
+CHEESE_LIFE_BOOST = 50
 
 SIZE=32
 PLAYER_HP = 100
@@ -201,10 +203,28 @@ class Player(Entity):
 				self.hit(MOUSE_DAMAGE)
 				mouse.hit(10000000) # kill mouse
 
+	def checkCheeses(self, game: Game):
+		for cheese in game.cheeses:
+			if cheese.hp < 0:
+				continue
+
+			# check rect collision
+			dx = cheese.x - self.x
+			dy = cheese.y - self.y
+			size = self.getSize()
+			hW = size[0]/2
+			hH = size[1]/2
+			if abs(dx) <= hW and abs(dy) <= hH:
+				inc = cheese.hp * (CHEESE_LIFE_BOOST / CHEESE_HP)
+				self.hp = min(self.hp + inc, PLAYER_HP)
+				cheese.hit(10000000) # kill cheese
+
+
 	def update(self, game : Game):
 		self.updateSpeed(game)
 		self.handleLasso(game)
 		self.checkMouses(game)
+		self.checkCheeses(game)
 		self.hp = min(PLAYER_HP, self.hp + PLAYER_HP_INC)
 
 	def getSize(self) -> tuple[int, int]:

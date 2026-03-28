@@ -22,19 +22,14 @@ class GamePanel:
 		lines = [
 			firstLine,
 			"",
-			"Hold the left mouse button to extend your trunk.",
-			"If your trunk is on a piece of cheese,",
-			"you can grab it and move it (it becomes invisible to mice).",
-			"The mice want to eat you,",
-			"so lure them into the lava using the cheese to survive.",
-			"",
-			"Use your trunk to trick the mice!",
+			"ZQSD/Arrows: Move",
+			"Left mouse: move trunk",
 			"Good luck!",
 			"",
 			"Press LEFT-CLICK to start"
 		]
 
-		y = SCREEN.h // 6
+		y = SCREEN.h // 4
 		line_height = font.get_height() + 5
 
 		for line in lines:

@@ -9,8 +9,8 @@ if TYPE_CHECKING:
 
 
 class LavaSpawner:
-	couldown = 1
-	rythm = 1200
+	couldown = -1000
+	rythm = 1700
 	radius = 500
 
 	def update(self, game: Game):
