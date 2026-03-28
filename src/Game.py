@@ -18,6 +18,9 @@ from random import randint
 if TYPE_CHECKING:
 	from Monster import Monster
 
+MONSTER_SCORE = 30
+
+
 class Game:
 	screen_width = 800
 	screen_height = 450
@@ -34,11 +37,14 @@ class Game:
 	monsterSpawner = MonsterSpawner()
 	lavaSpawner = LavaSpawner()
 	cheeseSpawner = CheeseSpawner()
+	score = 0
 
+	def __init__(self) -> None:
+		self.sysFont = pygame.font.SysFont("Courier New", 36)
+		
 
 	def runTest(self):
-		self.cheeses.append(Cheese(50, 40))
-		self.lavas.append(Lava(50, 50))
+		pass
 
 
 	def toCamera(self, x, y, z, w, h):
@@ -56,11 +62,13 @@ class Game:
 		return pygame.Rect(int(screen_x), int(screen_y), int(screen_w), int(screen_h))
 
 	def update(self):
+		self.frameCount += 1
+		self.score += .1 # survive reward
+
 		self.player.update(self)
 		self.player.move(self)
 		self.player.lasso.follow(self.player.x, self.player.y)
 
-		self.frameCount += 1
 		self.monsterSpawner.update(self)
 		self.cheeseSpawner.update(self)
 		self.lavaSpawner.update(self)
@@ -87,6 +95,10 @@ class Game:
 		for i in range(L):
 			for j in range(i):
 				self.monsters[i].resolveCollision(self.monsters[j])
+
+		for m in self.monsters:
+			if not m.isAlive():
+				self.score += MONSTER_SCORE
 
 		# Kill
 		self.monsters = [e for e in self.monsters if e.isAlive()]
@@ -130,6 +142,12 @@ class Game:
 		color = (127, 127, 127)
 		pygame.draw.rect(screen, color, rect)
 
+	def printScore(self, screen: Surface):
+		score_text = f"{int(self.score):06d}"
+		text_surface = self.sysFont.render(score_text, True, pygame.Color('white'))
+		screen.blit(text_surface, (10, 10))
+
+
 	def draw(self, screen: Surface):
 		screen.fill((0, 0, 0))
 
@@ -154,4 +172,6 @@ class Game:
 
 		self.player.draw(screen, self)
 		self.player.lasso.draw(screen, self)
+
+		self.printScore(screen)
 

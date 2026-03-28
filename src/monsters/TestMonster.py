@@ -30,4 +30,4 @@ class TestMonster(Monster):
 		
 
 	def getFullHp(self) -> float:
-		return 2
+		return 1

@@ -2,6 +2,7 @@ import pygame
 from Game import Game
 
 pygame.init()
+pygame.font.init()
 
 screen = pygame.display.set_mode((800, 450))
 pygame.display.set_caption("Trompe them up")

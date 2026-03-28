@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 class CheeseSpawner:
 	couldown = 1
-	rythm = 2000
+	rythm = 1000
 	radius = 200
 
 	def update(self, game: Game):

@@ -20,11 +20,16 @@ CHEESE_FIX_RANGE = 5
 ASPIRATION_SPEED = .4
 
 SIZE=32
+PLAYER_HP = 100
 
 class Player(Entity):
 	maxSpeed = 6
 	lasso = Lasso()
 	takenCheese: Optional[Cheese] = None
+	hp = PLAYER_HP
+
+	def getHp(self) -> tuple[float, float] | None:
+		return (self.hp, PLAYER_HP)
 
 	def updateSpeed(self, game: Game):
 		pressLeft = game.inputHandler.isPressed('left')
@@ -189,3 +194,7 @@ class Player(Entity):
 
 	def getTexture(self) -> str | None:
 		return "assets/textures/elephant.png"
+	
+
+	def getHpColor(self) -> Color | None:
+		return Color(255, 0, 63)

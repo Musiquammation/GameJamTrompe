@@ -123,7 +123,8 @@ class Entity:
 		SIZE_INC = 1.2
 
 		hp = self.getHp()
-		if hp is None:
+		color = self.getHpColor()
+		if hp is None or color is None:
 			return
 
 		current, maximum = hp
@@ -145,7 +146,7 @@ class Entity:
 		red_rect_y = white_rect_y + HP_BAR_PADDING
 
 		red_rect = pygame.Rect(red_rect_x, red_rect_y, red_rect_width, red_rect_height)
-		pygame.draw.rect(screen, self.getHpColor(), red_rect)
+		pygame.draw.rect(screen, color, red_rect)
 
 
 
@@ -161,8 +162,8 @@ class Entity:
 	def getHp(self) -> Optional[tuple[float,float]]:
 		return None
 	
-	def getHpColor(self) -> pygame.Color:
-		return pygame.Color(255,0,63)
+	def getHpColor(self) -> Optional[pygame.Color]:
+		return None
 
 	def isAlive(self) -> bool:
 		hp = self.getHp()
