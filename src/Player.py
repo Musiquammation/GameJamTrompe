@@ -127,20 +127,17 @@ class Player(Entity):
 
 
 	def addLasso(self, game: Game):
-		if self.lasso.increasing:
-			if game.inputHandler.isPressed('mouse-left'):
-				if len(self.lasso.points) == 0:
-					self.lasso.setSpawn(self.x, self.y)
-					
-				(mx, my) = game.inputHandler.getGameMouse()
-				self.lasso.append(mx, my)
-			elif len(self.lasso.points) > 0:
-				self.lasso.increasing = False
-		
-		else:
-			self.lasso.points.pop()
+		if game.inputHandler.isPressed('mouse-left'):
 			if len(self.lasso.points) == 0:
-				self.lasso.increasing = True
+				self.lasso.setSpawn(self.x, self.y)
+				
+			(mx, my) = game.inputHandler.getGameMouse()
+			self.lasso.append(mx, my)
+		elif len(self.lasso.points) > 0:
+			self.lasso.increasing = False
+			self.lasso.points.pop()
+
+		
 
 			
 
