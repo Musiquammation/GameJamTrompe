@@ -39,25 +39,29 @@ class Entity:
 		if self.careAboutLava():
 			self.checkLava(game)
 
+	def getLavaDamage(self) -> float:
+		return 0
 
 	def checkLava(self, game: Game):
+		damage = self.getLavaDamage()
+		
 		# Check for lava
-			for lava in game.lavas:
-				if lava == self:
-					continue
+		for lava in game.lavas:
+			if lava == self:
+				continue
 
-				# Check collision with lava
-				size = self.getSize()
-				hW = size[0]/2
-				hH = size[1]/2
-				half_lava = LAVASTATS.LAVA_SIZE / 2
+			# Check collision with lava
+			size = self.getSize()
+			hW = size[0]/2
+			hH = size[1]/2
+			half_lava = LAVASTATS.LAVA_SIZE / 2
 
-				dx = abs(self.x - lava.x)
-				dy = abs(self.y - lava.y)
+			dx = abs(self.x - lava.x)
+			dy = abs(self.y - lava.y)
 
-				if dx <= hW + half_lava and dy <= hH + half_lava:
-					# collision
-					self.hit(LAVASTATS.LAVA_DAMAGES_TO_MOUSE)
+			if dx <= hW + half_lava and dy <= hH + half_lava:
+				# collision
+				self.hit(damage)
 
 	def update(self, game: Game):
 		pass
@@ -73,7 +77,7 @@ class Entity:
 			texture = game.texture_loader.getFlippedTexture(textureName)
 		else:
 			texture = game.texture_loader.getTexture(textureName)
-			
+
 		w = size[0]
 		h = size[1]
 

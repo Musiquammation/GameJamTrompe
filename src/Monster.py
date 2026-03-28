@@ -72,3 +72,6 @@ class Monster(Entity):
 			self.y = max(-GAMESIZE.y  + rSelfH, min(self.y, GAMESIZE.y - rSelfH))
 			m.x    = max(-GAMESIZE.x + rMW,    min(m.x,    GAMESIZE.x  - rMW))
 			m.y    = max(-GAMESIZE.y  + rMH,    min(m.y,    GAMESIZE.y - rMH))
+
+	def getLavaDamage(self) -> float:
+		return 1

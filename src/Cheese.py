@@ -57,16 +57,9 @@ class Cheese(Entity):
 				coef = (MAX_DIST - d) / MAX_DIST
 				self.hit(coef)
 
-		# Check lava
-		for l in game.lavas:
-			# Check collision
-			size = self.getSize()
-			hW = size[0]/2
-			hH = size[1]/2
-			half_lava = LAVASTATS.LAVA_SIZE / 2
-			if abs(self.x - l.x) <= hW + half_lava and abs(self.y - l.y) <= hH + half_lava:
-				self.hit(LAVASTATS.LAVA_DAMAGES_TO_CHEESE)
-				
+
+	def getLavaDamage(self) -> float:
+		return 12				
 
 	def draw(self, screen: Surface, game: Game):
 		return super().drawWithIcon(screen, game)

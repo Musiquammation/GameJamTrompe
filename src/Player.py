@@ -18,6 +18,7 @@ DECELERATION = 3
 CHEESE_RANGE = 140
 CHEESE_FIX_RANGE = 5
 ASPIRATION_SPEED = .4
+MOUSE_DAMAGE = 8
 
 SIZE=32
 PLAYER_HP = 100
@@ -136,6 +137,9 @@ class Player(Entity):
 				if self.vy > 0:
 					self.vy = 0
 
+	def careAboutLava(self) -> bool:
+		return True
+
 
 	def handleLasso(self, game: Game):
 		# Increase / Decrease lasso
@@ -182,12 +186,22 @@ class Player(Entity):
 			self.takenCheese = None
 
 		
-				
-
+	def checkMouses(self, game: Game):
+		for mouse in game.monsters:
+			dx = mouse.x - self.x
+			dy = mouse.y - self.y
+			# check collision
+			size = self.getSize()
+			hW = size[0]/2
+			hH = size[1]/2
+			if abs(dx) <= hW and abs(dy) <= hH:
+				self.hit(MOUSE_DAMAGE)
+				mouse.hit(10000000) # kill mouse
 
 	def update(self, game : Game):
 		self.updateSpeed(game)
 		self.handleLasso(game)
+		self.checkMouses(game)
 
 	def getSize(self) -> tuple[int, int]:
 		return (32,32)
@@ -195,6 +209,12 @@ class Player(Entity):
 	def getTexture(self) -> str | None:
 		return "assets/textures/elephant.png"
 	
+	def hit(self, damages: float) -> bool:
+		self.hp -= damages
+		return self.hp > 0
 
 	def getHpColor(self) -> Color | None:
 		return Color(255, 0, 63)
+
+	def getLavaDamage(self) -> float:
+		return 0.2

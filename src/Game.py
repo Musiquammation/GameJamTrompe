@@ -65,15 +65,14 @@ class Game:
 		self.frameCount += 1
 		self.score += .1 # survive reward
 
+		# Update
 		self.player.update(self)
-		self.player.move(self)
 		self.player.lasso.follow(self.player.x, self.player.y)
 
 		self.monsterSpawner.update(self)
 		self.cheeseSpawner.update(self)
 		self.lavaSpawner.update(self)
 
-		# Update
 		for monster in self.monsters:
 			monster.update(self)
 
@@ -84,6 +83,7 @@ class Game:
 			lava.update(self)
 
 		# Move
+		self.player.move(self)
 		for monster in self.monsters:
 			monster.move(self)
 
