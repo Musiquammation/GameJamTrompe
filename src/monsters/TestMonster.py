@@ -11,14 +11,18 @@ CHEESE_RADIUS = 300
 MONSTER_SPEED = 2
 
 class TestMonster(Monster):
+	followingCheese = False
+
 	def getTexture(self):
 		return "assets/textures/jerry_lvl1.png"
 	
 	def update(self, game : Game):
 		target = game.collectNearestCheese(self.x, self.y, CHEESE_RADIUS*CHEESE_RADIUS)
 		if target == None:
+			self.followingCheese = False
 			target = Vector2(game.player.x, game.player.y)
 		else:
+			self.followingCheese = True
 			target = Vector2(target[0].x, target[0].y)
 
 		direction : Vector2 = -Vector2(self.x, self.y) + target
@@ -31,3 +35,6 @@ class TestMonster(Monster):
 
 	def getFullHp(self) -> float:
 		return 1
+	
+	def careAboutLava(self) -> bool:
+		return self.followingCheese

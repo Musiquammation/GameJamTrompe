@@ -20,6 +20,9 @@ class Entity:
 		self.x = x
 		self.y = y
 
+	def careAboutLava(self) -> bool:
+		return True
+
 	def move(self, game: Game):
 		self.x += self.vx
 		self.y += self.vy
@@ -33,7 +36,8 @@ class Entity:
 		elif self.y > GAMESIZE.y:
 			self.y = GAMESIZE.y
 
-		self.checkLava(game)
+		if self.careAboutLava():
+			self.checkLava(game)
 
 
 	def checkLava(self, game: Game):
