@@ -1,6 +1,8 @@
 from __future__ import annotations
 from typing import TYPE_CHECKING, Optional
 import pygame
+import LAVASTATS
+
 
 if TYPE_CHECKING:
 	from Game import Game
@@ -20,12 +22,29 @@ class Entity:
 	def move(self, game: Game):
 		self.x += self.vx
 		self.y += self.vy
+		self.checkLava(game)
 
+
+	def checkLava(self, game: Game):
 		# Check for lava
-	
+			for lava in game.lavas:
+				if lava == self:
+					continue
 
+				# Check collision with lava
+				size = self.getSize()
+				hW = size[0]/2
+				hH = size[1]/2
+				half_lava = LAVASTATS.LAVA_SIZE / 2
 
-	def update(self, game : Game):
+				dx = abs(self.x - lava.x)
+				dy = abs(self.y - lava.y)
+
+				if dx <= hW + half_lava and dy <= hH + half_lava:
+					# collision
+					self.hit(LAVASTATS.LAVA_DAMAGES)
+
+	def update(self, game: Game):
 		pass
 
 	def draw(self, screen : pygame.Surface, game: Game):

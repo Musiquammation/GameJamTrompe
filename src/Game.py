@@ -34,6 +34,7 @@ class Game:
 			self.monsters.append(TestMonster(randint(-1000,1000), randint(-1000,1000)))
 
 		self.cheeses.append(Cheese(50, 40))
+		self.lavas.append(Lava(50, 50))
 
 
 	def toCamera(self, x, y, z, w, h):

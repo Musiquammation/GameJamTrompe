@@ -19,7 +19,7 @@ class TestMonster(Monster):
 			target = Vector2(game.player.x, game.player.y)
 		else:
 			target = Vector2(target[0].x, target[0].y)
-			
+
 		direction : Vector2 = -Vector2(self.x, self.y) + target
 		if direction.length_squared() > 0:
 			direction = direction.normalize()
@@ -29,4 +29,4 @@ class TestMonster(Monster):
 		
 
 	def getFullHp(self) -> float:
-		return 100
+		return 2

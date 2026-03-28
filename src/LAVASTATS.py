@@ -1,0 +1,3 @@
+LAVA_HP = 1000
+LAVA_SIZE = 32
+LAVA_DAMAGES: float = 1

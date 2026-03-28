@@ -21,3 +21,4 @@ class Monster(Entity):
 	def hit(self, damages: float) -> bool:
 		self.hp -= damages
 		return self.hp > 0
+	
