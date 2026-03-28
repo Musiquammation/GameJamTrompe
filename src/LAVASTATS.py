@@ -1,2 +1,2 @@
 LAVA_HP = 1800 # 30sec
-LAVA_SIZE = 32
+LAVA_SIZE = 48

@@ -11,7 +11,7 @@ if TYPE_CHECKING:
 
 BOX_HP = 2400 # 40sec
 BOX_SIZE = 48
-SPEED_REDUCE = .3
+SPEED_REDUCE = .6
 
 class Box(Entity):
 	hp = BOX_HP

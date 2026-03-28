@@ -21,6 +21,9 @@ class Lava(Entity):
 	def update(self, game: Game):
 		self.hp -= 1
 
+	def getSizeInc(self) -> float:
+		return 1.6
+
 	def getSize(self) -> tuple[int, int]:
 		return (LAVA_SIZE, LAVA_SIZE)
 	
