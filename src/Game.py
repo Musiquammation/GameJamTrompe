@@ -32,7 +32,7 @@ class Game:
 			self.monsters.append(TestMonster(randint(-1000,1000), randint(-1000,1000)))
 
 		self.cheeses.append(Cheese(50, 40))
-		
+
 
 	def toCamera(self, x, y, z, w, h):
 		dz = self.camZ - z
@@ -55,13 +55,47 @@ class Game:
 
 		self.frameCount += 1
 
+		# Update
 		for monster in self.monsters:
 			monster.update(self)
 
+		for cheese in self.cheeses:
+			cheese.update(self)
+
+		# Move
 		for monster in self.monsters:
 			monster.move(self)
 
+		for cheese in self.cheeses:
+			cheese.move(self)
+
+	def collectNearestCheeses(self, cx: float, cy: float, maxRange2: float):
+		best = None
+
+		for cheese in self.cheeses:
+			dx = cheese.x - cx
+			dy = cheese.y - cy
+			d2 = dx * dx + dy * dy
+			if d2 <= maxRange2:
+				best = cheese
+				maxRange2 = d2
+
+		return (best, maxRange2)
+	
+	def collectCheesesInRange(self, cx: float, cy: float, range2: float):
+		list: list[tuple[Cheese,float,float,float]] = []
+		for cheese in self.cheeses:
+			dx = cheese.x - cx
+			dy = cheese.y - cy
+			d2 = dx * dx + dy * dy
+			if d2 <= range2:
+				list.append((cheese, dx, dy, d2))
 		
+		return list
+
+
+
+
 
 	def draw(self, screen: Surface):
 		screen.fill((0, 0, 0))

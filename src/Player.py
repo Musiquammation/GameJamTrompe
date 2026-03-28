@@ -1,9 +1,10 @@
 from __future__ import annotations
+from typing import TYPE_CHECKING
 
 from pygame import Surface, Color
-from typing import TYPE_CHECKING
 from Entity import Entity
 from Lasso import Lasso
+from math import sqrt
 
 if TYPE_CHECKING:
 	from Game import Game
@@ -13,6 +14,8 @@ ACCELERATION = 1
 ACC_REVERSE = 2
 SLOW_DOWN = .1
 DECELERATION = 3
+CHEESE_RANGE = 500
+ASPIRATION_SPEED = .3
 
 SIZE=32
 
@@ -126,7 +129,8 @@ class Player(Entity):
 					self.vy = 0
 
 
-	def addLasso(self, game: Game):
+	def handleLasso(self, game: Game):
+		# Increase / Decrease lasso
 		if game.inputHandler.isPressed('mouse-left'):
 			if len(self.lasso.points) == 0:
 				self.lasso.setSpawn(self.x, self.y)
@@ -137,15 +141,20 @@ class Player(Entity):
 			self.lasso.increasing = False
 			self.lasso.points.pop()
 
-		
-
-			
-
+		if game.inputHandler.isPressed('take'):
+			lasso = self.lasso.getLassoPoint()
+			if lasso:
+				list = game.collectCheesesInRange(lasso[0], lasso[1], CHEESE_RANGE*CHEESE_RANGE)
+				for (cheese, dx, dy, dist2) in list:
+					scale = ASPIRATION_SPEED / sqrt(dist2)
+					cheese.vx -= dx * scale
+					cheese.vy -= dy * scale
+				
 
 
 	def update(self, game : Game):
 		self.updateSpeed(game)
-		self.addLasso(game)
+		self.handleLasso(game)
 
 	def getSize(self) -> tuple[int, int]:
 		return (32,32)

@@ -45,6 +45,11 @@ class Lasso:
 		self.startY = y
 		self.points.append((x,y))
 
+	def getLassoPoint(self):
+		if len(self.points) >= 1:
+			return self.points[len(self.points) - 1]
+		return None
+
 	def append(self, x: float, y: float):
 		self.finalX = x
 		self.finalY = y
