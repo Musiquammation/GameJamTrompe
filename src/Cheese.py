@@ -2,7 +2,8 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 from Entity import Entity
-from pygame import Vector2
+from pygame import Surface, Vector2
+
 
 if TYPE_CHECKING:
 	from Game import Game
@@ -36,3 +37,6 @@ class Cheese(Entity):
 
 		n = v.normalize() * l
 		(self.vx, self.vy) = n
+
+	def draw(self, screen: Surface, game: Game):
+		return super().drawWithIcon(screen, game)

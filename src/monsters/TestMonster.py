@@ -8,6 +8,7 @@ if TYPE_CHECKING:
 	from Game import Game
 
 CHEESE_RADIUS = 300
+MONSTER_SPEED = 2
 
 class TestMonster(Monster):
 	def getTexture(self):
@@ -22,7 +23,7 @@ class TestMonster(Monster):
 
 		direction : Vector2 = -Vector2(self.x, self.y) + target
 		if direction.length_squared() > 0:
-			direction = direction.normalize()
+			direction = direction.normalize() * MONSTER_SPEED
 
 		self.vx = direction.x
 		self.vy = direction.y
