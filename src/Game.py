@@ -8,6 +8,7 @@ from Cheese import Cheese
 from Lava import Lava
 from GAMESIZE import GAMESIZE
 from MonsterSpawner import MonsterSpawner
+from LavaSpawner import LavaSpawner
 from monsters.TestMonster import TestMonster
 from InputHandler import InputHandler
 from TextureLoader import TextureLoader
@@ -30,6 +31,7 @@ class Game:
 	camZ = 1
 	texture_loader = TextureLoader()
 	monsterSpawner = MonsterSpawner()
+	lavaSpawner = LavaSpawner()
 
 
 	def runTest(self):
@@ -58,6 +60,7 @@ class Game:
 
 		self.frameCount += 1
 		self.monsterSpawner.update(self)
+		self.lavaSpawner.update(self)
 
 		# Update
 		for monster in self.monsters:

@@ -1,19 +1,17 @@
 from __future__ import annotations
 from typing import TYPE_CHECKING
 from pygame import Vector2
-from monsters.TestMonster import TestMonster
+from Lava import Lava
 from randomPointAroundPlayer import randomPointAroundPlayer
 
 if TYPE_CHECKING:
 	from Game import Game
 
 
-
-
-class MonsterSpawner:
+class LavaSpawner:
 	couldown = 1
-	rythm = 60
-	radius = 300
+	rythm = 280
+	radius = 500
 
 	def update(self, game: Game):
 		self.couldown -= 1
@@ -22,6 +20,7 @@ class MonsterSpawner:
 		
 		self.couldown += self.rythm
 		point = randomPointAroundPlayer(game.player.x, game.player.y, self.radius)
-		game.monsters.append(TestMonster(point[0], point[1]))
+		game.lavas.append(Lava(point[0], point[1]))
+		print(point)
 
 
