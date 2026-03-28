@@ -17,6 +17,11 @@ class MonsterSpawner:
 	couldown: float = -200
 	radius = 300
 
+	def spawn(self, game: Game):
+		point = randomPointAroundPlayer(game.player.x, game.player.y, self.radius)
+		game.monsters.append(TestMonster(point[0], point[1]))
+
+
 	def update(self, game: Game):
 		self.couldown -= 1
 		if self.couldown > 0:
@@ -24,7 +29,6 @@ class MonsterSpawner:
 		
 		rythm = getRythm(game.score)
 		self.couldown += rythm
-		point = randomPointAroundPlayer(game.player.x, game.player.y, self.radius)
-		game.monsters.append(TestMonster(point[0], point[1]))
+		self.spawn(game)
 
 

@@ -9,7 +9,7 @@ if TYPE_CHECKING:
 	from Game import Game
 
 
-HEART_HP = 2400 # 40sec
+HEART_HP = 1800 # 30sec
 HEART_SIZE = 48
 
 class Heart(Entity):

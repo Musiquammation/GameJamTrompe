@@ -6,6 +6,7 @@ KEYS_DICT = {
 	'right': [pygame.K_RIGHT, pygame.K_d],
 	'up': [pygame.K_UP, pygame.K_z],
 	'down': [pygame.K_DOWN, pygame.K_s],
+	'strong': [pygame.K_p],
 	'mouse-left': [-1],
 	'mouse-right': [-2],
 	'mouse-middle': [-3],

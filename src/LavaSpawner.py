@@ -11,7 +11,7 @@ if TYPE_CHECKING:
 class LavaSpawner:
 	couldown = -1000
 	rythm = 1700
-	radius = 800
+	radius = 650
 
 	def update(self, game: Game):
 		self.couldown -= 1

@@ -10,9 +10,9 @@ if TYPE_CHECKING:
 
 
 class BoxSpawner:
-	radius = 500
-	couldown = -1
+	radius = 400
 	rythm = 600
+	couldown = -(rythm*2+100)
 
 	def update(self, game: Game):
 		self.couldown -= 1

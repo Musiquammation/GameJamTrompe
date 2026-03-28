@@ -24,7 +24,7 @@ if TYPE_CHECKING:
 	from Monster import Monster
 
 MONSTER_SCORE = 30
-
+STRONG_BOOST = 4
 
 class Game:
 	def __init__(self, textureLoader: TextureLoader, inputHandler: InputHandler) -> None:
@@ -40,10 +40,12 @@ class Game:
 		self.hearts: list[Heart] = []
 		
 		self.frameCount = 0
+		self.scoreToAdd = 0
 		
 		self.camX = 0
 		self.camY = 0
 		self.camZ = 1
+		self.forbidCouldown = -1
 		
 		self.monsterSpawner = MonsterSpawner()
 		self.lavaSpawner = LavaSpawner()
@@ -72,6 +74,13 @@ class Game:
 	def update(self):
 		self.frameCount += 1
 		self.score += .1 # survive reward
+
+		if self.inputHandler.isPressed('strong'):
+			self.addStrongMonster()
+
+		if self.scoreToAdd > 0:
+			self.score += 1
+			self.scoreToAdd -= 1
 
 		# Update
 		self.player.update(self)
@@ -169,6 +178,9 @@ class Game:
 		
 		return list
 
+	def addStrongMonster(self):
+		self.monsterSpawner.spawn(self)
+		self.scoreToAdd += STRONG_BOOST
 
 
 
@@ -189,6 +201,10 @@ class Game:
 		score_text = f"Lava:   {int(self.lavaSpawner.couldown/60):02d}"
 		text_surface = self.textureLoader.sysFont.render(score_text, True, pygame.Color('white'))
 		screen.blit(text_surface, (10, 2 * SCREEN.w // 45 + 10))
+
+		score_text = f"Heart:  {int(self.heartSpawner.couldown/60):02d}"
+		text_surface = self.textureLoader.sysFont.render(score_text, True, pygame.Color('white'))
+		screen.blit(text_surface, (10, 3* SCREEN.w // 45 + 10))
 
 
 	def placeCamera(self):
@@ -216,9 +232,8 @@ class Game:
 
 
 
-		for box in self.hearts:
+		for box in self.boxes:
 			box.draw(screen, self)
-
 
 		for lava in self.lavas:
 			lava.draw(screen, self)
