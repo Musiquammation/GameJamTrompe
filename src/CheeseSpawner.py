@@ -11,7 +11,7 @@ if TYPE_CHECKING:
 
 class CheeseSpawner:
 	couldown = 1
-	rythm = 600
+	rythm = 550
 	radius = 200
 
 	def calcFrame(self, game: Game):
@@ -27,7 +27,12 @@ class CheeseSpawner:
 				sum += s
 
 		sum /= L
-		return sum * getScoreBalance(game.score)
+		help = sum * getScoreBalance(game.score)
+
+		if game.score < 500:
+			help += .6
+
+		return help
 
 	def update(self, game: Game):
 		help = self.calcFrame(game)

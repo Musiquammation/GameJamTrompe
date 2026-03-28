@@ -11,7 +11,7 @@ if TYPE_CHECKING:
 
 
 def getRythm(x: float):
-	return -6.211 * log(x) + 88.61
+	return -6.211 * log(x) + 98.61
 
 class MonsterSpawner:
 	couldown: float = -200
