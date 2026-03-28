@@ -197,8 +197,8 @@ class Player(Entity):
 			dy = mouse.y - self.y
 			# check collision
 			size = self.getSize()
-			hW = size[0]/2
-			hH = size[1]/2
+			hW = size[0]/8
+			hH = size[1]/8
 			if abs(dx) <= hW and abs(dy) <= hH:
 				self.hit(MOUSE_DAMAGE)
 				mouse.hit(10000000) # kill mouse
