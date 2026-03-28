@@ -1,17 +1,17 @@
 from __future__ import annotations
 from typing import TYPE_CHECKING
 from pygame import Vector2
-from Lava import Lava
+from Cheese import Cheese
 from randomPointAroundPlayer import randomPointAroundPlayer
 
 if TYPE_CHECKING:
 	from Game import Game
 
 
-class LavaSpawner:
+class CheeseSpawner:
 	couldown = 1
-	rythm = 280
-	radius = 500
+	rythm = 300
+	radius = 200
 
 	def update(self, game: Game):
 		self.couldown -= 1
@@ -20,6 +20,6 @@ class LavaSpawner:
 		
 		self.couldown += self.rythm
 		point = randomPointAroundPlayer(game.player.x, game.player.y, self.radius)
-		game.lavas.append(Lava(point[0], point[1]))
+		game.cheeses.append(Cheese(point[0], point[1]))
 
 

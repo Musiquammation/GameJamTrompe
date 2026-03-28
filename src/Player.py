@@ -22,7 +22,7 @@ ASPIRATION_SPEED = .4
 SIZE=32
 
 class Player(Entity):
-	maxSpeed = 2.5
+	maxSpeed = 6
 	lasso = Lasso()
 	takenCheese: Optional[Cheese] = None
 
