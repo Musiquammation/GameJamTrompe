@@ -7,7 +7,6 @@ if TYPE_CHECKING:
 	from Game import Game
 
 from math import sqrt
-import pygame
 from Entity import Entity
 
 class Monster(Entity):
@@ -74,4 +73,7 @@ class Monster(Entity):
 			m.y    = max(-GAMESIZE.y  + rMH,    min(m.y,    GAMESIZE.y - rMH))
 
 	def getLavaDamage(self) -> float:
+		return 1
+	
+	def getSpeed(self) -> float:
 		return 1

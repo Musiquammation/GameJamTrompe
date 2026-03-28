@@ -46,3 +46,6 @@ class TestMonster(Monster):
 	
 	def careAboutLava(self) -> bool:
 		return self.followingCheese
+	
+	def getSpeed(self) -> float:
+		return self.speed
