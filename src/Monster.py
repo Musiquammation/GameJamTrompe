@@ -8,12 +8,15 @@ import pygame
 from Entity import Entity
 
 class Monster(Entity):
-    def update(self, game : Game):
-        super()
+	def __init__(self, x: float, y: float):
+		self.hp = self.getFullHp()
 
-        direction : pygame.Vector2 = -pygame.Vector2(self.x, self.y) + pygame.Vector2(game.player.x, game.player.y)
-        if direction.length_squared() > 0:
-            direction = direction.normalize()
-
-        self.vx = direction.x
-        self.vy = direction.y
+	def getFullHp(self) -> float:
+		return 100
+	
+	def getHp(self) -> tuple[float, float] | None:
+		return (self.hp, self.getFullHp())
+	
+	def hit(self, damages: float) -> bool:
+		self.hp -= damages
+		return self.hp > 0

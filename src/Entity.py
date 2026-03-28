@@ -38,6 +38,9 @@ class Entity:
 
 			screen.blit(texture, rect)
 
+	def hit(self, damages: float) -> bool:
+		return True # still alive
+
 	def getSize(self) -> tuple[int, int]:
 		return (32,32)
 
@@ -46,3 +49,11 @@ class Entity:
 	
 	def getHp(self) -> Optional[tuple[float,float]]:
 		return None
+	
+	def isAlive(self) -> bool:
+		hp = self.getHp()
+		if hp:
+			return hp[0] > 0
+		
+		return True
+

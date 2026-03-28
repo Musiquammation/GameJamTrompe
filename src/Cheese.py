@@ -31,7 +31,6 @@ class Cheese(Entity):
 		if l <= 0:
 			self.vx = 0
 			self.vy = 0
-			return
 
 		n = v.normalize() * l
 		(self.vx, self.vy) = n
