@@ -144,10 +144,18 @@ class Game:
 		color = (127, 127, 127)
 		pygame.draw.rect(screen, color, rect)
 
-	def printScore(self, screen: Surface):
+	def printStats(self, screen: Surface):
 		score_text = f"{int(self.score):06d}"
 		text_surface = self.textureLoader.sysFont.render(score_text, True, pygame.Color('white'))
 		screen.blit(text_surface, (10, 10))
+
+		score_text = f"Cheese: {int(self.cheeseSpawner.couldown/60):02d}"
+		text_surface = self.textureLoader.sysFont.render(score_text, True, pygame.Color('white'))
+		screen.blit(text_surface, (10, SCREEN.w // 45 + 10))
+
+		score_text = f"Lava:   {int(self.lavaSpawner.couldown/60):02d}"
+		text_surface = self.textureLoader.sysFont.render(score_text, True, pygame.Color('white'))
+		screen.blit(text_surface, (10, 2 * SCREEN.w // 45 + 10))
 
 
 	def placeCamera(self):
@@ -189,5 +197,5 @@ class Game:
 		self.player.draw(screen, self)
 		self.player.lasso.draw(screen, self)
 
-		self.printScore(screen)
+		self.printStats(screen)
 
