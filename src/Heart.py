@@ -9,40 +9,36 @@ if TYPE_CHECKING:
 	from Game import Game
 
 
-BOX_HP = 2400 # 40sec
-BOX_SIZE = 48
-SPEED_REDUCE = .3
+HEART_HP = 2400 # 40sec
+HEART_SIZE = 48
 
-class Box(Entity):
-	hp = BOX_HP
+class Heart(Entity):
+	hp = HEART_HP
 
 	def __init__(self, x: float, y: float):
 		super().__init__(x, y)
 	
 	def getHp(self) -> tuple[float, float] | None:
-		return (self.hp, BOX_HP)
+		return (self.hp, HEART_HP)
 
 	def getSizeInc(self) -> float:
 		return .8
 
 	def update(self, game: Game):
 		self.hp -= 1
-		v = Vector2(self.vx, self.vy)
-		l = v.length()
-		l -= SPEED_REDUCE
-		if l <= 0:
-			self.vx = 0
-			self.vy = 0
-		else:
-			n = v.normalize() * l
-			(self.vx, self.vy) = n
+
+	def hit(self, damages: float) -> bool:
+		self.hp -= damages
+		return self.hp <= 0
 
 	def getSize(self) -> tuple[int, int]:
-		return (BOX_SIZE, BOX_SIZE)
+		return (HEART_SIZE, HEART_SIZE)
 	
 	def getTexture(self) -> str | None:
-		return "assets/textures/box.png"
+		return "assets/textures/heart.png"
 
+	def draw(self, screen: pygame.Surface, game: Game):
+		super().drawWithIcon(screen, game)
 
 	def getHpColor(self) -> pygame.Color:
-		return pygame.Color(127, 127, 0)
+		return pygame.Color(255, 127, 127)

@@ -24,7 +24,7 @@ CHEESE_LIFE_BOOST = 50
 
 SIZE=32
 PLAYER_HP = 100
-PLAYER_HP_INC = .01
+HEART_HP = PLAYER_HP//3
 
 class Player(Entity):
 	maxSpeed = 6
@@ -192,13 +192,15 @@ class Player(Entity):
 
 		
 	def checkMouses(self, game: Game):
+		size = self.getSize()
 		for mouse in game.monsters:
 			dx = mouse.x - self.x
 			dy = mouse.y - self.y
+			s = mouse.getSize()
+
 			# check collision
-			size = self.getSize()
-			hW = size[0]/8
-			hH = size[1]/8
+			hW = (size[0]+s[0])/2
+			hH = (size[1]+s[1])/2
 			if abs(dx) <= hW and abs(dy) <= hH:
 				self.hit(MOUSE_DAMAGE)
 				mouse.hit(10000000) # kill mouse
@@ -221,13 +223,26 @@ class Player(Entity):
 				self.hp = min(self.hp + inc, PLAYER_HP)
 				cheese.hit(10000000) # kill cheese
 
+	def checkHearts(self, game: Game):
+		size = self.getSize()
+		for heart in game.hearts:
+			dx = heart.x - self.x
+			dy = heart.y - self.y
+			s = heart.getSize()
+			# check collision
+			hW = (size[0]+s[0])/2
+			hH = (size[1]+s[1])/2
+			if abs(dx) <= hW and abs(dy) <= hH:
+				self.hp = min(self.hp + HEART_HP, PLAYER_HP)
+				heart.hit(99999) # kill heart
+
 
 	def update(self, game : Game):
 		self.updateSpeed(game)
 		self.handleLasso(game)
 		self.checkMouses(game)
 		self.checkCheeses(game)
-		self.hp = min(PLAYER_HP, self.hp + PLAYER_HP_INC)
+		self.checkHearts(game)
 
 	def getSize(self) -> tuple[int, int]:
 		return (32,32)

@@ -6,10 +6,12 @@ from pygame import Surface
 from Player import Player
 from Cheese import Cheese
 from Lava import Lava
+from Heart import Heart
 from Box import Box
 from GAMESIZE import GAMESIZE
 from MonsterSpawner import MonsterSpawner
 from LavaSpawner import LavaSpawner
+from HeartSpawner import HeartSpawner
 from CheeseSpawner import CheeseSpawner
 from BoxSpawner import BoxSpawner
 from monsters.TestMonster import TestMonster
@@ -35,6 +37,7 @@ class Game:
 		self.cheeses: list[Cheese] = []
 		self.lavas: list[Lava] = []
 		self.boxes: list[Box] = []
+		self.hearts: list[Heart] = []
 		
 		self.frameCount = 0
 		
@@ -46,6 +49,7 @@ class Game:
 		self.lavaSpawner = LavaSpawner()
 		self.cheeseSpawner = CheeseSpawner()
 		self.boxSpawner = BoxSpawner()
+		self.heartSpawner = HeartSpawner()
 		
 		self.score: float = 0
 		
@@ -77,6 +81,7 @@ class Game:
 		self.cheeseSpawner.update(self)
 		self.lavaSpawner.update(self)
 		self.boxSpawner.update(self)
+		self.heartSpawner.update(self)
 
 		for monster in self.monsters:
 			monster.update(self)
@@ -90,6 +95,8 @@ class Game:
 		for box in self.boxes:
 			box.update(self)
 
+		for heart in self.hearts:
+			heart.update(self)
 
 		# Move
 		self.player.move(self)
@@ -128,6 +135,8 @@ class Game:
 		self.monsters = [e for e in self.monsters if e.isAlive()]
 		self.cheeses = [e for e in self.cheeses if e.isAlive()]
 		self.lavas = [e for e in self.lavas if e.isAlive()]
+		self.boxes = [e for e in self.boxes if e.isAlive()]
+		self.hearts = [e for e in self.hearts if e.isAlive()]
 
 		return self.player.hp <= 0
 
@@ -207,8 +216,9 @@ class Game:
 
 
 
-		for box in self.boxes:
+		for box in self.hearts:
 			box.draw(screen, self)
+
 
 		for lava in self.lavas:
 			lava.draw(screen, self)
@@ -218,6 +228,9 @@ class Game:
 
 		for cheese in self.cheeses:
 			cheese.draw(screen, self)
+
+		for heart in self.hearts:
+			heart.draw(screen, self)
 
 
 		self.player.draw(screen, self)
