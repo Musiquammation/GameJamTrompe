@@ -1,5 +1,5 @@
 from __future__ import annotations
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Optional
 
 from pygame import Surface, Color
 from Entity import Entity
@@ -8,13 +8,15 @@ from math import sqrt
 
 if TYPE_CHECKING:
 	from Game import Game
+	from Cheese import Cheese
 
 
 ACCELERATION = 1
 ACC_REVERSE = 2
 SLOW_DOWN = .1
 DECELERATION = 3
-CHEESE_RANGE = 50
+CHEESE_RANGE = 60
+CHEESE_FIX_RANGE = 5
 ASPIRATION_SPEED = .3
 
 SIZE=32
@@ -22,6 +24,7 @@ SIZE=32
 class Player(Entity):
 	maxSpeed = 10
 	lasso = Lasso()
+	takenCheese: Optional[Cheese] = None
 
 	def updateSpeed(self, game: Game):
 		pressLeft = game.inputHandler.isPressed('left')
@@ -131,7 +134,8 @@ class Player(Entity):
 
 	def handleLasso(self, game: Game):
 		# Increase / Decrease lasso
-		if game.inputHandler.isPressed('mouse-left'):
+		mouseLeft = game.inputHandler.isPressed('mouse-left')
+		if mouseLeft:
 			if len(self.lasso.points) == 0:
 				self.lasso.setSpawn(self.x, self.y)
 				
@@ -142,14 +146,37 @@ class Player(Entity):
 			self.lasso.removePoint()
 
 		# if game.inputHandler.isPressed('take'):
-		if True:
-			lasso = self.lasso.getLassoPoint()
-			if lasso:
+		lasso = self.lasso.getLassoPoint()
+		if lasso:
+			if self.takenCheese:
+				if mouseLeft:
+					self.takenCheese.x = lasso[0]
+					self.takenCheese.y = lasso[1]
+				else:
+					self.takenCheese.taken = False
+					self.takenCheese = None
+
+			else:
 				list = game.collectCheesesInRange(lasso[0], lasso[1], CHEESE_RANGE*CHEESE_RANGE)
 				for (cheese, dx, dy, dist2) in list:
+					if dist2 < CHEESE_FIX_RANGE*CHEESE_FIX_RANGE:
+						cheese.x = lasso[0]
+						cheese.y = lasso[1]
+						cheese.vx = 0
+						cheese.vy = 0
+						cheese.taken = True
+						self.takenCheese = cheese
+						break
+
 					scale = ASPIRATION_SPEED / sqrt(dist2)
 					cheese.vx -= dx * scale
 					cheese.vy -= dy * scale
+
+		elif self.takenCheese:
+			self.takenCheese.taken = False
+			self.takenCheese = None
+
+		
 				
 
 

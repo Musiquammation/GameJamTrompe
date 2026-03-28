@@ -48,9 +48,28 @@ class Lasso:
 		self.points.append((x,y))
 
 	def getLassoPoint(self):
-		if len(self.points) >= 1:
-			return self.points[len(self.points) - 1]
-		return None
+		L = len(self.points)
+
+		if L < 1:
+			return None
+		
+		sx = self.points[L-1][0]
+		sy = self.points[L-1][1]
+		dx = self.finalX - sx
+		dy = self.finalY - sy
+		dist = math.hypot(dx, dy)
+
+		if dist <= LASSO_SPEED_INC:
+			end = (self.finalX, self.finalY)
+		else:
+			ratio = LASSO_SPEED_INC / dist
+			end = (
+				sx + dx * ratio,
+				sy + dy * ratio
+			)
+
+		return end
+
 
 	def append(self, x: float, y: float):
 		self.finalX = x
@@ -93,19 +112,9 @@ class Lasso:
 				end = self.points[i + 1]
 
 			elif self.increasing:
-				dx = self.finalX - start[0]
-				dy = self.finalY - start[1]
-				dist = math.hypot(dx, dy)
-
-				if dist <= LASSO_SPEED_INC:
-					end = (self.finalX, self.finalY)
-				else:
-					ratio = LASSO_SPEED_INC / dist
-					end = (
-						start[0] + dx * ratio,
-						start[1] + dy * ratio
-					)
-
+				end = self.getLassoPoint()
+				if end == None:
+					end = start
 			else:
 				break
 
