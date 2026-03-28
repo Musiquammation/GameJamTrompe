@@ -84,6 +84,9 @@ class Game:
 		best = None
 
 		for cheese in self.cheeses:
+			if cheese.taken:
+				continue
+			
 			dx = cheese.x - cx
 			dy = cheese.y - cy
 			d2 = dx * dx + dy * dy

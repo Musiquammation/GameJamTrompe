@@ -14,6 +14,7 @@ SPEED_REDUCE = .1
 
 class Cheese(Entity):
 	hp: float = CHEESE_HP
+	taken = False
 
 	def getTexture(self) -> str | None:
 		return "assets/textures/cheese.png"
