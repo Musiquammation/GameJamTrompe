@@ -8,7 +8,6 @@ from getScoreBalance import getScoreBalance
 if TYPE_CHECKING:
 	from Game import Game
 
-
 class CheeseSpawner:
 	couldown = 1
 	rythm = 550
