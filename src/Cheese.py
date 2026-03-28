@@ -6,6 +6,8 @@ from pygame.color import Color as Color
 from Entity import Entity
 from pygame import Surface, Vector2
 
+import LAVASTATS
+
 
 if TYPE_CHECKING:
 	from Game import Game
@@ -45,7 +47,7 @@ class Cheese(Entity):
 			n = v.normalize() * l
 			(self.vx, self.vy) = n
 
-		# Collect damages
+		# Check monsters
 		for m in game.monsters:
 			dx = self.x - m.x
 			dy = self.y - m.y
@@ -54,6 +56,16 @@ class Cheese(Entity):
 				d = d2**0.5
 				coef = (MAX_DIST - d) / MAX_DIST
 				self.hit(coef)
+
+		# Check lava
+		for l in game.lavas:
+			# Check collision
+			size = self.getSize()
+			hW = size[0]/2
+			hH = size[1]/2
+			half_lava = LAVASTATS.LAVA_SIZE / 2
+			if abs(self.x - l.x) <= hW + half_lava and abs(self.y - l.y) <= hH + half_lava:
+				self.hit(LAVASTATS.LAVA_DAMAGES_TO_CHEESE)
 				
 
 	def draw(self, screen: Surface, game: Game):

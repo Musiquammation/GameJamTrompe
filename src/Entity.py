@@ -53,7 +53,7 @@ class Entity:
 
 				if dx <= hW + half_lava and dy <= hH + half_lava:
 					# collision
-					self.hit(LAVASTATS.LAVA_DAMAGES)
+					self.hit(LAVASTATS.LAVA_DAMAGES_TO_MOUSE)
 
 	def update(self, game: Game):
 		pass
