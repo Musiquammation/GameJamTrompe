@@ -13,6 +13,7 @@ from CheeseSpawner import CheeseSpawner
 from monsters.TestMonster import TestMonster
 from InputHandler import InputHandler
 from TextureLoader import TextureLoader
+from SCREEN import SCREEN
 from random import randint
 
 if TYPE_CHECKING:
@@ -22,29 +23,24 @@ MONSTER_SCORE = 30
 
 
 class Game:
-	screen_width = 800
-	screen_height = 450
 	player = Player(0, 0)
 	monsters : list[Monster] = []
 	cheeses: list[Cheese] = []
 	lavas: list[Lava] = []
-	inputHandler = InputHandler()
 	frameCount = 0
 	camX = 0
 	camY = 0
 	camZ = 1
-	texture_loader = TextureLoader()
+	
 	monsterSpawner = MonsterSpawner()
 	lavaSpawner = LavaSpawner()
 	cheeseSpawner = CheeseSpawner()
-	score = 0
+	score: float = 0
 
-	def __init__(self) -> None:
-		self.sysFont = pygame.font.SysFont("Courier New", 36)
+	def __init__(self, textureLoader: TextureLoader, inputHandler: InputHandler) -> None:
+		self.textureLoader = textureLoader
+		self.inputHandler = inputHandler
 		
-
-	def runTest(self):
-		pass
 
 
 	def toCamera(self, x, y, z, w, h):
@@ -56,8 +52,8 @@ class Game:
 
 		screen_w = w * scale
 		screen_h = h * scale
-		screen_x = (x - self.camX) * scale + 400 - screen_w/2
-		screen_y = (y - self.camY) * scale + 225 - screen_h/2
+		screen_x = (x - self.camX) * scale + SCREEN.w/2 - screen_w/2
+		screen_y = (y - self.camY) * scale + SCREEN.h/2 - screen_h/2
 
 		return pygame.Rect(int(screen_x), int(screen_y), int(screen_w), int(screen_h))
 
@@ -105,6 +101,8 @@ class Game:
 		self.cheeses = [e for e in self.cheeses if e.isAlive()]
 		self.lavas = [e for e in self.lavas if e.isAlive()]
 
+		return self.player.hp <= 0
+
 	def collectNearestCheese(self, cx: float, cy: float, maxRange2: float):
 		best = None
 
@@ -144,16 +142,30 @@ class Game:
 
 	def printScore(self, screen: Surface):
 		score_text = f"{int(self.score):06d}"
-		text_surface = self.sysFont.render(score_text, True, pygame.Color('white'))
+		text_surface = self.textureLoader.sysFont.render(score_text, True, pygame.Color('white'))
 		screen.blit(text_surface, (10, 10))
+
+
+	def placeCamera(self):
+		self.camX = self.player.x
+		self.camY = self.player.y
+
+		if self.camX < -GAMESIZE.x + SCREEN.w/2:
+			self.camX = -GAMESIZE.x + SCREEN.w/2
+		elif self.camX > GAMESIZE.x - SCREEN.w/2:
+			self.camX = GAMESIZE.x - SCREEN.w/2
+
+		if self.camY < -GAMESIZE.y + SCREEN.h/2:
+			self.camY = -GAMESIZE.y + SCREEN.h/2
+		elif self.camY > GAMESIZE.y - SCREEN.h/2:
+			self.camY = GAMESIZE.y - SCREEN.h/2
 
 
 	def draw(self, screen: Surface):
 		screen.fill((0, 0, 0))
 
 		# Place camera
-		self.camX = self.player.x
-		self.camY = self.player.y
+		self.placeCamera()
 		
 		self.drawBackground(screen)
 

@@ -24,13 +24,18 @@ class Cheese(Entity):
 	taken = False
 
 	def getTexture(self) -> str | None:
+		if self.taken:
+			return "assets/textures/cheese-transparent.png"
 		return "assets/textures/cheese.png"
 	
 	def getSize(self) -> tuple[int, int]:
-		return (16,16)
+		return (32,32)
 	
 	def getHp(self) -> tuple[float, float] | None:
 		return (self.hp, CHEESE_HP)
+
+	def getSizeInc(self):
+		return 1.2
 
 	def hit(self, damages: float) -> bool:
 		self.hp -= damages

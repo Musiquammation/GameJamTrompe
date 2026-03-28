@@ -6,7 +6,7 @@ import math
 if TYPE_CHECKING:
 	from Game import Game
 
-LASSO_SPEED_INC = 10
+LASSO_SPEED_INC = 14
 LASSO_SPEED_REMTIMES = 3
 
 class Lasso:
@@ -101,8 +101,7 @@ class Lasso:
 		if len(self.points) < 2:
 			return
 
-		color = (255, 0, 255)
-		width = 3
+		color = (87, 106, 115)
 
 		L = len(self.points)
 		for i in range(L):
@@ -121,6 +120,7 @@ class Lasso:
 			pStart = game.toCamera(start[0], start[1], 0, 0,0)
 			pEnd = game.toCamera(end[0], end[1], 0, 0,0)
 
+			width = int(max(11 - i/5, 6))
 			pygame.draw.line(
 				screen, color,
 				(pStart[0], pStart[1]),

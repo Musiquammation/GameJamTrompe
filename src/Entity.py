@@ -3,7 +3,7 @@ from typing import TYPE_CHECKING, Optional
 import pygame
 import LAVASTATS
 from GAMESIZE import GAMESIZE
-
+from SCREEN import SCREEN
 
 if TYPE_CHECKING:
 	from Game import Game
@@ -74,9 +74,9 @@ class Entity:
 		size = self.getSize()
 
 		if self.vx < 0:
-			texture = game.texture_loader.getFlippedTexture(textureName)
+			texture = game.textureLoader.getFlippedTexture(textureName)
 		else:
-			texture = game.texture_loader.getTexture(textureName)
+			texture = game.textureLoader.getTexture(textureName)
 
 		w = size[0]
 		h = size[1]
@@ -95,7 +95,7 @@ class Entity:
 			return
 		
 		size = self.getSize()
-		texture = game.texture_loader.getTexture(textureName)
+		texture = game.textureLoader.getTexture(textureName)
 		w = size[0]
 		h = size[1]
 
@@ -113,15 +113,15 @@ class Entity:
 		if rect.right < rw2:
 			rect.left = -rw2
 			notEdited = False
-		elif rect.left > game.screen_width - rw2:
-			rect.left = game.screen_width - rw2
+		elif rect.left > SCREEN.w - rw2:
+			rect.left = SCREEN.w - rw2
 			notEdited = False
 
 		if rect.bottom < rh2:
 			rect.top = -rh2
 			notEdited = False
-		elif rect.top > game.screen_height - rh2:
-			rect.top = game.screen_height - rh2
+		elif rect.top > SCREEN.h - rh2:
+			rect.top = SCREEN.h - rh2
 			notEdited = False
 
 		screen.blit(texture, rect)
@@ -129,11 +129,14 @@ class Entity:
 		if notEdited:
 			self.drawHp(screen, rect)
 
+	def getSizeInc(self) -> float:
+		return 2
+
 	def drawHp(self, screen: pygame.Surface, rect: pygame.Rect):
 		HP_BAR_DISTANCE = 10
 		HP_BAR_HEIGHT = 7
 		HP_BAR_PADDING = 1
-		SIZE_INC = 1.2
+		sizeInc = self.getSizeInc()
 
 		hp = self.getHp()
 		color = self.getHpColor()
@@ -143,7 +146,7 @@ class Entity:
 		current, maximum = hp
 
 		# Calcul du rectangle blanc (fond)
-		white_rect_width = rect.width * 2
+		white_rect_width = rect.width * sizeInc
 		white_rect_height = HP_BAR_HEIGHT
 		white_rect_x = rect.centerx - white_rect_width // 2
 		white_rect_y = rect.top - HP_BAR_DISTANCE - white_rect_height
@@ -153,8 +156,8 @@ class Entity:
 
 		# Calcul du rectangle rouge (HP)
 		hp_ratio = max(0, min(1, current / maximum))
-		red_rect_width = int((white_rect_width - SIZE_INC * HP_BAR_PADDING) * hp_ratio)
-		red_rect_height = HP_BAR_HEIGHT - SIZE_INC * HP_BAR_PADDING
+		red_rect_width = int((white_rect_width - 2 * HP_BAR_PADDING) * hp_ratio)
+		red_rect_height = HP_BAR_HEIGHT - 2 * HP_BAR_PADDING
 		red_rect_x = white_rect_x + HP_BAR_PADDING
 		red_rect_y = white_rect_y + HP_BAR_PADDING
 

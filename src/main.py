@@ -1,20 +1,34 @@
 import pygame
+from typing import Optional
 from Game import Game
+from GamePanel import GamePanel
+from TextureLoader import TextureLoader
+from InputHandler import InputHandler
+from SCREEN import SCREEN
 
 pygame.init()
 pygame.font.init()
 
-screen = pygame.display.set_mode((800, 450))
+screen = pygame.display.set_mode((SCREEN.w, SCREEN.h))
 pygame.display.set_caption("Trompe them up")
 
-game = Game()
-game.runTest()
+
+textureLoader = TextureLoader()
+inputHandler = InputHandler()
+game: Optional[Game] = None
+panel = GamePanel(-1, textureLoader, inputHandler)
 
 clock = pygame.time.Clock()
 
 running = True
+
 while running:
-	game.inputHandler.frame(game.camX, game.camY, game.camZ)
+	clock.tick(60)
+
+	if game:
+		inputHandler.frame(game.camX, game.camY, game.camZ)
+	else:
+		inputHandler.frame(0, 0, 1)
 
 	for event in pygame.event.get():
 		match event.type:
@@ -22,35 +36,48 @@ while running:
 				running = False
 
 			case pygame.KEYDOWN:
-				game.inputHandler.addKey(event.key)
+				inputHandler.addKey(event.key)
 
 			case pygame.KEYUP:
-				game.inputHandler.removeKey(event.key)
+				inputHandler.removeKey(event.key)
 
 			case pygame.MOUSEBUTTONDOWN:
 				if event.button == 1: # left
-					game.inputHandler.addKey(-1)
+					inputHandler.addKey(-1)
 				elif event.button == 3: # right
-					game.inputHandler.addKey(-3)
+					inputHandler.addKey(-3)
 				elif event.button == 2: # middle
-					game.inputHandler.addKey(-2)
+					inputHandler.addKey(-2)
 				
 			case pygame.MOUSEBUTTONUP:
 				if event.button == 1: # left
-					game.inputHandler.removeKey(-1)
+					inputHandler.removeKey(-1)
 				elif event.button == 3: # right
-					game.inputHandler.removeKey(-3)
+					inputHandler.removeKey(-3)
 				elif event.button == 2: # middle
-					game.inputHandler.removeKey(-2)
+					inputHandler.removeKey(-2)
 
 			case pygame.MOUSEMOTION:
-				game.inputHandler.appendMouse(event.pos[0], event.pos[1])
+				inputHandler.appendMouse(event.pos[0], event.pos[1])
 
 
-	game.update()
-	game.draw(screen)
+	
+	if game:
+		u = game.update()
+		game.draw(screen)
+
+		if u:
+			panel = GamePanel(int(game.score), textureLoader, inputHandler)
+			game = None
+	else:
+		u = panel.update()
+		panel.draw(screen)
+
+		if u:
+			game = Game(textureLoader, inputHandler)
+
+
 	pygame.display.flip()
 
-	clock.tick(60)
 
 pygame.quit()

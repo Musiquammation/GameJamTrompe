@@ -1,12 +1,11 @@
 import pygame
+from SCREEN import SCREEN
 
 KEYS_DICT = {
 	'left': [pygame.K_LEFT, pygame.K_q],
 	'right': [pygame.K_RIGHT, pygame.K_d],
 	'up': [pygame.K_UP, pygame.K_z],
 	'down': [pygame.K_DOWN, pygame.K_s],
-	'take': [pygame.K_a],
-	'drop': [pygame.K_e],
 	'mouse-left': [-1],
 	'mouse-right': [-2],
 	'mouse-middle': [-3],
@@ -45,6 +44,6 @@ class InputHandler:
 	def frame(self, camX: float, camY: float, camZ: float):
 		self._first_pressed_keys.clear()
 
-		self._gameMouseX = (self._mouseX - 400) * camZ + camX
-		self._gameMouseY = (self._mouseY - 225) * camZ + camY		
+		self._gameMouseX = (self._mouseX - SCREEN.w/2) * camZ + camX
+		self._gameMouseY = (self._mouseY - SCREEN.h/2) * camZ + camY		
 		

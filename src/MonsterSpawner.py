@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 class MonsterSpawner:
 	couldown = 1
-	rythm = 60
+	rythm = 40
 	radius = 300
 
 	def update(self, game: Game):

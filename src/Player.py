@@ -16,7 +16,7 @@ ACC_REVERSE = 2
 SLOW_DOWN = .1
 DECELERATION = 3
 CHEESE_RANGE = 140
-CHEESE_FIX_RANGE = 5
+CHEESE_FIX_RANGE = 15
 ASPIRATION_SPEED = .4
 MOUSE_DAMAGE = 8
 
@@ -140,7 +140,6 @@ class Player(Entity):
 	def careAboutLava(self) -> bool:
 		return True
 
-
 	def handleLasso(self, game: Game):
 		# Increase / Decrease lasso
 		mouseLeft = game.inputHandler.isPressed('mouse-left')
@@ -154,7 +153,6 @@ class Player(Entity):
 			self.lasso.increasing = False
 			self.lasso.removePoint()
 
-		# if game.inputHandler.isPressed('take'):
 		lasso = self.lasso.getLassoPoint()
 		if lasso:
 			if self.takenCheese:
