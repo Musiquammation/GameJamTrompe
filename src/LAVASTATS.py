@@ -1,3 +1,3 @@
-LAVA_HP = 300
+LAVA_HP = 1800 # 30sec
 LAVA_SIZE = 32
 LAVA_DAMAGES: float = 1
