@@ -86,7 +86,7 @@ class Game:
 		for cheese in self.cheeses:
 			if cheese.taken:
 				continue
-			
+
 			dx = cheese.x - cx
 			dy = cheese.y - cy
 			d2 = dx * dx + dy * dy
@@ -121,14 +121,14 @@ class Game:
 		self.camY = self.player.y
 
 
+		for lava in self.lavas:
+			lava.draw(screen, self)
+
 		for monster in self.monsters:
 			monster.draw(screen, self)
 
 		for cheese in self.cheeses:
 			cheese.draw(screen, self)
-
-		for lava in self.lavas:
-			lava.draw(screen, self)
 
 
 		self.player.draw(screen, self)

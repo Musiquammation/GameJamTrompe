@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 
 CHEESE_HP = 300
-SPEED_REDUCE = .1
+SPEED_REDUCE = .3
 
 class Cheese(Entity):
 	hp: float = CHEESE_HP
