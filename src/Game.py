@@ -47,6 +47,8 @@ class Game:
 	def update(self):
 		self.player.update(self)
 		self.player.move(self)
+		self.player.lasso.follow(self.player.x, self.player.y)
+
 		self.frameCount += 1
 
 		for monster in self.monsters:

@@ -5,9 +5,61 @@ import pygame
 if TYPE_CHECKING:
 	from Game import Game
 
+LASSO_SPEED = 30
+
 class Lasso:
 	increasing = True
 	points: list[tuple[float, float]] = []
+	spawnX: float = 0
+	spawnY: float = 0
+	finalX: float = 0
+	finalY: float = 0
+	startX: float = 0
+	startY: float = 0
+
+	def follow(self, x: float, y: float):
+		if x == self.startX and y == self.startY:
+			return
+			
+		sx = self.startX
+		sy = self.startY
+		self.startX = x
+		self.startY = y
+
+		if len(self.points) < 2:
+			self.points.insert(0, (sx, sy))
+			return
+		
+		f = self.points[1]
+		v = pygame.Vector2(f[0] - x, f[1] - y)
+		if v.length() < LASSO_SPEED:
+			self.points[0] = (x,y)
+		else:
+			self.points.insert(0, (x, y))
+
+
+	def setSpawn(self, x: float, y: float):
+		self.spawnX = x
+		self.spawnY = y
+		self.startX = x
+		self.startY = y
+		self.points.append((x,y))
+
+	def append(self, x: float, y: float):
+		self.finalX = x
+		self.finalY = y
+
+		(lx, ly) = self.points[len(self.points)-1]
+		v = pygame.Vector2(x-lx, y-ly)
+		if v.length() < LASSO_SPEED:
+			return
+		
+		delta = v.normalize() * LASSO_SPEED
+		self.points.append((delta.x + lx, delta.y + ly))
+		
+		
+	def hasLasso(self):
+		return len(self.points) > 0
 
 	def apply(self):
 		# print(self.points)
@@ -15,19 +67,24 @@ class Lasso:
 
 	def draw(self, screen: pygame.Surface, game: Game):
 		if len(self.points) < 2:
-			return  # Il faut au moins deux points pour dessiner une ligne
+			return
 
-		color = (128, 0, 128)  # violet RGB
-		width = 2  # épaisseur des lignes
+		color = (128, 0, 128)
+		width = 3
 
-		for i in range(len(self.points) - 1):
+		L = len(self.points)
+		for i in range(L):
 			start = self.points[i]
-			end = self.points[i + 1]
+			if i < L-1:
+				end = self.points[i+1]
+			elif self.increasing:
+				end = (self.finalX, self.finalY)
+			else:
+				break
 
 			pStart = game.toCamera(start[0], start[1], 0, 0,0)
 			pEnd = game.toCamera(end[0], end[1], 0, 0,0)
 
-			print(pStart)
 			pygame.draw.line(
 				screen, color,
 				(pStart[0], pStart[1]),

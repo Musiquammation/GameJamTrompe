@@ -9,7 +9,7 @@ if TYPE_CHECKING:
 class Entity:
 	x: float
 	y: float
-	z = 0
+	z: float = 0
 	vx = 0
 	vy = 0 
 
