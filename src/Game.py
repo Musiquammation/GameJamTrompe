@@ -4,6 +4,7 @@ from typing import TYPE_CHECKING
 import pygame
 from pygame import Surface
 from Player import Player
+from Cheese import Cheese
 from monsters.TestMonster import TestMonster
 from InputHandler import InputHandler
 from TextureLoader import TextureLoader
@@ -13,22 +14,25 @@ if TYPE_CHECKING:
 	from Monster import Monster
 
 class Game:
-	def __init__(self):
-		self.screen_width = 800
-		self.screen_height = 450
-		self.player = Player(0, 0)
-		self.monsters : list[Monster] = []
-		self.inputHandler = InputHandler()
-		self.frameCount = 0
-		self.camX = 0
-		self.camY = 0
-		self.camZ = 1
-		self.texture_loader = TextureLoader()
+	screen_width = 800
+	screen_height = 450
+	player = Player(0, 0)
+	monsters : list[Monster] = []
+	cheeses: list[Cheese] = []
+	inputHandler = InputHandler()
+	frameCount = 0
+	camX = 0
+	camY = 0
+	camZ = 1
+	texture_loader = TextureLoader()
 
 
 	def runTest(self):
-		for i in range(50):
+		for _ in range(50):
 			self.monsters.append(TestMonster(randint(-1000,1000), randint(-1000,1000)))
+
+		self.cheeses.append(Cheese(50, 40))
+		
 
 	def toCamera(self, x, y, z, w, h):
 		dz = self.camZ - z
@@ -60,14 +64,19 @@ class Game:
 		
 
 	def draw(self, screen: Surface):
+		screen.fill((0, 0, 0))
+
+		# Fix camera
 		self.camX = self.player.x
 		self.camY = self.player.y
 
-		screen.fill((0, 0, 0))
-		self.player.draw(screen, self)
 
 		for monster in self.monsters:
 			monster.draw(screen, self)
 
+		for cheese in self.cheeses:
+			cheese.draw(screen, self)
+
+		self.player.draw(screen, self)
 		self.player.lasso.draw(screen, self)
 

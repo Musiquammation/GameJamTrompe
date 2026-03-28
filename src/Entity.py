@@ -43,3 +43,6 @@ class Entity:
 
 	def getTexture(self) -> Optional[str]:
 		return None
+	
+	def getHp(self) -> Optional[tuple[float,float]]:
+		return None
