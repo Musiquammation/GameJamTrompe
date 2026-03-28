@@ -113,6 +113,8 @@ class Game:
 
 		for box in self.boxes:
 			self.player.resolveCollision(box)
+			for cheese in self.cheeses:
+				cheese.resolveCollision(box)
 
 
 
