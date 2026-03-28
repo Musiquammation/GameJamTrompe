@@ -2,7 +2,6 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 import pygame
 from Entity import Entity
-from Game import Game
 
 if TYPE_CHECKING:
 	from Game import Game

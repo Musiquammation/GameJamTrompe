@@ -17,9 +17,13 @@ class Entity:
 		self.x = x
 		self.y = y
 
-	def move(self, game: Game) :
+	def move(self, game: Game):
 		self.x += self.vx
 		self.y += self.vy
+
+		# Check for lava
+	
+
 
 	def update(self, game : Game):
 		pass

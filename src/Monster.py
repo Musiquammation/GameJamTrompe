@@ -9,6 +9,7 @@ from Entity import Entity
 
 class Monster(Entity):
 	def __init__(self, x: float, y: float):
+		super().__init__(x,y)
 		self.hp = self.getFullHp()
 
 	def getFullHp(self) -> float:

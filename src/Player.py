@@ -139,9 +139,10 @@ class Player(Entity):
 			self.lasso.append(mx, my)
 		elif len(self.lasso.points) > 0:
 			self.lasso.increasing = False
-			self.lasso.points.pop()
+			self.lasso.removePoint()
 
-		if game.inputHandler.isPressed('take'):
+		# if game.inputHandler.isPressed('take'):
+		if True:
 			lasso = self.lasso.getLassoPoint()
 			if lasso:
 				list = game.collectCheesesInRange(lasso[0], lasso[1], CHEESE_RANGE*CHEESE_RANGE)

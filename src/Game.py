@@ -5,6 +5,7 @@ import pygame
 from pygame import Surface
 from Player import Player
 from Cheese import Cheese
+from Lava import Lava
 from monsters.TestMonster import TestMonster
 from InputHandler import InputHandler
 from TextureLoader import TextureLoader
@@ -19,6 +20,7 @@ class Game:
 	player = Player(0, 0)
 	monsters : list[Monster] = []
 	cheeses: list[Cheese] = []
+	lavas: list[Lava] = []
 	inputHandler = InputHandler()
 	frameCount = 0
 	camX = 0
@@ -62,6 +64,9 @@ class Game:
 		for cheese in self.cheeses:
 			cheese.update(self)
 
+		for lava in self.lavas:
+			lava.update(self)
+
 		# Move
 		for monster in self.monsters:
 			monster.move(self)
@@ -69,7 +74,12 @@ class Game:
 		for cheese in self.cheeses:
 			cheese.move(self)
 
-	def collectNearestCheeses(self, cx: float, cy: float, maxRange2: float):
+		# Kill
+		self.monsters = [e for e in self.monsters if e.isAlive()]
+		self.cheeses = [e for e in self.cheeses if e.isAlive()]
+		self.lavas = [e for e in self.lavas if e.isAlive()]
+
+	def collectNearestCheese(self, cx: float, cy: float, maxRange2: float):
 		best = None
 
 		for cheese in self.cheeses:
@@ -80,6 +90,8 @@ class Game:
 				best = cheese
 				maxRange2 = d2
 
+		if best == None:
+			return None
 		return (best, maxRange2)
 	
 	def collectCheesesInRange(self, cx: float, cy: float, range2: float):
@@ -100,7 +112,7 @@ class Game:
 	def draw(self, screen: Surface):
 		screen.fill((0, 0, 0))
 
-		# Fix camera
+		# Place camera
 		self.camX = self.player.x
 		self.camY = self.player.y
 
@@ -110,6 +122,10 @@ class Game:
 
 		for cheese in self.cheeses:
 			cheese.draw(screen, self)
+
+		for lava in self.lavas:
+			lava.draw(screen, self)
+
 
 		self.player.draw(screen, self)
 		self.player.lasso.draw(screen, self)

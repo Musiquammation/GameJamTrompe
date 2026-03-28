@@ -1,11 +1,13 @@
 from __future__ import annotations
 from typing import TYPE_CHECKING
 import pygame
+import math
 
 if TYPE_CHECKING:
 	from Game import Game
 
-LASSO_SPEED = 30
+LASSO_SPEED_INC = 10
+LASSO_SPEED_REMTIMES = 3
 
 class Lasso:
 	increasing = True
@@ -32,7 +34,7 @@ class Lasso:
 		
 		f = self.points[1]
 		v = pygame.Vector2(f[0] - x, f[1] - y)
-		if v.length() < LASSO_SPEED:
+		if v.length() < LASSO_SPEED_INC:
 			self.points[0] = (x,y)
 		else:
 			self.points.insert(0, (x, y))
@@ -56,12 +58,18 @@ class Lasso:
 
 		(lx, ly) = self.points[len(self.points)-1]
 		v = pygame.Vector2(x-lx, y-ly)
-		if v.length() < LASSO_SPEED:
+		if v.length() < LASSO_SPEED_INC:
 			return
 		
-		delta = v.normalize() * LASSO_SPEED
+		delta = v.normalize() * LASSO_SPEED_INC
 		self.points.append((delta.x + lx, delta.y + ly))
 		
+	def removePoint(self):
+		for _ in range(LASSO_SPEED_REMTIMES):
+			if len(self.points) == 0:
+				break
+			
+			self.points.pop()
 		
 	def hasLasso(self):
 		return len(self.points) > 0
@@ -80,10 +88,24 @@ class Lasso:
 		L = len(self.points)
 		for i in range(L):
 			start = self.points[i]
-			if i < L-1:
-				end = self.points[i+1]
+
+			if i < L - 1:
+				end = self.points[i + 1]
+
 			elif self.increasing:
-				end = (self.finalX, self.finalY)
+				dx = self.finalX - start[0]
+				dy = self.finalY - start[1]
+				dist = math.hypot(dx, dy)
+
+				if dist <= LASSO_SPEED_INC:
+					end = (self.finalX, self.finalY)
+				else:
+					ratio = LASSO_SPEED_INC / dist
+					end = (
+						start[0] + dx * ratio,
+						start[1] + dy * ratio
+					)
+
 			else:
 				break
 
