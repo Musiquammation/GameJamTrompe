@@ -204,6 +204,8 @@ class Player(Entity):
 				mouse.hit(10000000) # kill mouse
 
 	def checkCheeses(self, game: Game):
+		return # cancel this fn
+	
 		for cheese in game.cheeses:
 			if cheese.hp < 0:
 				continue

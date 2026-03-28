@@ -55,6 +55,7 @@ class Cheese(Entity):
 		
 
 	def update(self, game: Game):
+		# Slow down
 		v = Vector2(self.vx, self.vy)
 		l = v.length()
 		l -= SPEED_REDUCE

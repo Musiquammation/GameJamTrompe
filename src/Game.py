@@ -6,10 +6,12 @@ from pygame import Surface
 from Player import Player
 from Cheese import Cheese
 from Lava import Lava
+from Box import Box
 from GAMESIZE import GAMESIZE
 from MonsterSpawner import MonsterSpawner
 from LavaSpawner import LavaSpawner
 from CheeseSpawner import CheeseSpawner
+from BoxSpawner import BoxSpawner
 from monsters.TestMonster import TestMonster
 from InputHandler import InputHandler
 from TextureLoader import TextureLoader
@@ -32,6 +34,7 @@ class Game:
 		self.monsters: list[Monster] = []
 		self.cheeses: list[Cheese] = []
 		self.lavas: list[Lava] = []
+		self.boxes: list[Box] = []
 		
 		self.frameCount = 0
 		
@@ -42,6 +45,7 @@ class Game:
 		self.monsterSpawner = MonsterSpawner()
 		self.lavaSpawner = LavaSpawner()
 		self.cheeseSpawner = CheeseSpawner()
+		self.boxSpawner = BoxSpawner()
 		
 		self.score: float = 0
 		
@@ -72,6 +76,7 @@ class Game:
 		self.monsterSpawner.update(self)
 		self.cheeseSpawner.update(self)
 		self.lavaSpawner.update(self)
+		self.boxSpawner.update(self)
 
 		for monster in self.monsters:
 			monster.update(self)
@@ -82,6 +87,10 @@ class Game:
 		for lava in self.lavas:
 			lava.update(self)
 
+		for box in self.boxes:
+			box.update(self)
+
+
 		# Move
 		self.player.move(self)
 		for monster in self.monsters:
@@ -90,15 +99,28 @@ class Game:
 		for cheese in self.cheeses:
 			cheese.move(self)
 
+		for box in self.boxes:
+			box.move(self)
+
 		# Resolve collisions
 		L = len(self.monsters)
 		for i in range(L):
 			for j in range(i):
 				self.monsters[i].resolveCollision(self.monsters[j])
+			
+			for box in self.boxes:
+				self.monsters[i].resolveCollision(box)
+
+		for box in self.boxes:
+			self.player.resolveCollision(box)
+
+
 
 		for m in self.monsters:
 			if not m.isAlive():
 				self.score += MONSTER_SCORE
+
+		
 
 		# Kill
 		self.monsters = [e for e in self.monsters if e.isAlive()]
@@ -183,6 +205,8 @@ class Game:
 
 
 
+		for box in self.boxes:
+			box.draw(screen, self)
 
 		for lava in self.lavas:
 			lava.draw(screen, self)
