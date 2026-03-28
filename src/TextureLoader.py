@@ -1,9 +1,11 @@
 import pygame
+from SCREEN import SCREEN
+
 
 class TextureLoader:
 
 	def __init__(self):
-		self.sysFont = pygame.font.SysFont("Courier New", 36)
+		self.sysFont = pygame.font.SysFont("Courier New", int(SCREEN.w/45))
 		self.textures: dict[str, pygame.Surface] = {}
 		self.flip_textures: dict[str, pygame.Surface] = {}
 

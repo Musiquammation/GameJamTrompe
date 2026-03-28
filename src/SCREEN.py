@@ -3,4 +3,5 @@ class ScreenDim:
         self.w = w
         self.h = h
 
-SCREEN = ScreenDim(1600,900)
+SCREEN_WIDTH = 1600
+SCREEN = ScreenDim(SCREEN_WIDTH, int(SCREEN_WIDTH * 9/16))

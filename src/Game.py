@@ -23,23 +23,27 @@ MONSTER_SCORE = 30
 
 
 class Game:
-	player = Player(0, 0)
-	monsters : list[Monster] = []
-	cheeses: list[Cheese] = []
-	lavas: list[Lava] = []
-	frameCount = 0
-	camX = 0
-	camY = 0
-	camZ = 1
-	
-	monsterSpawner = MonsterSpawner()
-	lavaSpawner = LavaSpawner()
-	cheeseSpawner = CheeseSpawner()
-	score: float = 0
-
 	def __init__(self, textureLoader: TextureLoader, inputHandler: InputHandler) -> None:
 		self.textureLoader = textureLoader
 		self.inputHandler = inputHandler
+
+		self.player = Player(0, 0)
+		
+		self.monsters: list[Monster] = []
+		self.cheeses: list[Cheese] = []
+		self.lavas: list[Lava] = []
+		
+		self.frameCount = 0
+		
+		self.camX = 0
+		self.camY = 0
+		self.camZ = 1
+		
+		self.monsterSpawner = MonsterSpawner()
+		self.lavaSpawner = LavaSpawner()
+		self.cheeseSpawner = CheeseSpawner()
+		
+		self.score: float = 0
 		
 
 

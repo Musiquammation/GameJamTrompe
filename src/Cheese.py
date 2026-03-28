@@ -21,11 +21,19 @@ MAX_DIST_2 = MAX_DIST*MAX_DIST
 
 class Cheese(Entity):
 	hp: float = CHEESE_HP
+	hot: bool = False
 	taken = False
 
 	def getTexture(self) -> str | None:
+		if self.taken and self.hot:
+			return "assets/textures/cheese-hot-transparent.png"
+
 		if self.taken:
 			return "assets/textures/cheese-transparent.png"
+
+		if self.hot:
+			return "assets/textures/cheese-hot.png"
+
 		return "assets/textures/cheese.png"
 	
 	def getSize(self) -> tuple[int, int]:
@@ -40,6 +48,11 @@ class Cheese(Entity):
 	def hit(self, damages: float) -> bool:
 		self.hp -= damages
 		return self.hp > 0
+
+
+	def markLava(self, hot: bool):
+		self.hot = hot
+		
 
 	def update(self, game: Game):
 		v = Vector2(self.vx, self.vy)

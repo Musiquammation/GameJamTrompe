@@ -44,7 +44,8 @@ class Entity:
 
 	def checkLava(self, game: Game):
 		damage = self.getLavaDamage()
-		
+		hot = False
+
 		# Check for lava
 		for lava in game.lavas:
 			if lava == self:
@@ -62,6 +63,10 @@ class Entity:
 			if dx <= hW + half_lava and dy <= hH + half_lava:
 				# collision
 				self.hit(damage)
+				hot = True
+
+		self.markLava(hot)
+				
 
 	def update(self, game: Game):
 		pass
@@ -131,6 +136,9 @@ class Entity:
 
 	def getSizeInc(self) -> float:
 		return 2
+	
+	def markLava(self, hot: bool):
+		pass
 
 	def drawHp(self, screen: pygame.Surface, rect: pygame.Rect):
 		HP_BAR_DISTANCE = 10

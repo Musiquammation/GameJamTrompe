@@ -11,13 +11,15 @@ LASSO_SPEED_REMTIMES = 3
 
 class Lasso:
 	increasing = True
-	points: list[tuple[float, float]] = []
 	spawnX: float = 0
 	spawnY: float = 0
 	finalX: float = 0
 	finalY: float = 0
 	startX: float = 0
 	startY: float = 0
+
+	def __init__(self) -> None:
+		self.points: list[tuple[float, float]] = []
 
 	def follow(self, x: float, y: float):
 		if x == self.startX and y == self.startY:

@@ -16,18 +16,23 @@ ACC_REVERSE = 2
 SLOW_DOWN = .1
 DECELERATION = 3
 CHEESE_RANGE = 140
-CHEESE_FIX_RANGE = 15
+CHEESE_FIX_RANGE = 40
 ASPIRATION_SPEED = .4
 MOUSE_DAMAGE = 8
 
 SIZE=32
 PLAYER_HP = 100
+PLAYER_HP_INC = .01
 
 class Player(Entity):
 	maxSpeed = 6
-	lasso = Lasso()
 	takenCheese: Optional[Cheese] = None
 	hp = PLAYER_HP
+	lasso: Lasso
+
+	def __init__(self, x: float, y: float):
+		super().__init__(x, y)
+		self.lasso = Lasso()
 
 	def getHp(self) -> tuple[float, float] | None:
 		return (self.hp, PLAYER_HP)
@@ -200,6 +205,7 @@ class Player(Entity):
 		self.updateSpeed(game)
 		self.handleLasso(game)
 		self.checkMouses(game)
+		self.hp = min(PLAYER_HP, self.hp + PLAYER_HP_INC)
 
 	def getSize(self) -> tuple[int, int]:
 		return (32,32)
