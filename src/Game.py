@@ -6,6 +6,8 @@ from pygame import Surface
 from Player import Player
 from Cheese import Cheese
 from Lava import Lava
+from GAMESIZE import GAMESIZE
+from MonsterSpawner import MonsterSpawner
 from monsters.TestMonster import TestMonster
 from InputHandler import InputHandler
 from TextureLoader import TextureLoader
@@ -27,12 +29,10 @@ class Game:
 	camY = 0
 	camZ = 1
 	texture_loader = TextureLoader()
+	monsterSpawner = MonsterSpawner()
 
 
 	def runTest(self):
-		for _ in range(50):
-			self.monsters.append(TestMonster(randint(-1000,1000), randint(-1000,1000)))
-
 		self.cheeses.append(Cheese(50, 40))
 		self.lavas.append(Lava(50, 50))
 
@@ -57,6 +57,7 @@ class Game:
 		self.player.lasso.follow(self.player.x, self.player.y)
 
 		self.frameCount += 1
+		self.monsterSpawner.update(self)
 
 		# Update
 		for monster in self.monsters:
@@ -74,6 +75,12 @@ class Game:
 
 		for cheese in self.cheeses:
 			cheese.move(self)
+
+		# Resolve collisions
+		L = len(self.monsters)
+		for i in range(L):
+			for j in range(i):
+				self.monsters[i].resolveCollision(self.monsters[j])
 
 		# Kill
 		self.monsters = [e for e in self.monsters if e.isAlive()]
@@ -112,6 +119,10 @@ class Game:
 
 
 
+	def drawBackground(self, screen: Surface):
+		rect = self.toCamera(0,0, 0, GAMESIZE.x*2, GAMESIZE.y*2)
+		color = (127, 127, 127)
+		pygame.draw.rect(screen, color, rect)
 
 	def draw(self, screen: Surface):
 		screen.fill((0, 0, 0))
@@ -119,6 +130,10 @@ class Game:
 		# Place camera
 		self.camX = self.player.x
 		self.camY = self.player.y
+		
+		self.drawBackground(screen)
+
+
 
 
 		for lava in self.lavas:

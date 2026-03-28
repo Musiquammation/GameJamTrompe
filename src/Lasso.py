@@ -101,7 +101,7 @@ class Lasso:
 		if len(self.points) < 2:
 			return
 
-		color = (128, 0, 128)
+		color = (255, 0, 255)
 		width = 3
 
 		L = len(self.points)
