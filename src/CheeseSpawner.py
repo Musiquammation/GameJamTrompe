@@ -30,7 +30,7 @@ class CheeseSpawner:
 		help = sum * getScoreBalance(game.score)
 
 		if game.score < 500:
-			help += .6
+			help += .8
 
 		return help
 

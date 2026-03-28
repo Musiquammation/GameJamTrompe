@@ -15,7 +15,7 @@ class GamePanel:
 		font = self.textureLoader.sysFont
 		
 		if self.score < 0:
-			firstLine = "Trompe them'up"
+			firstLine = "Tromp's"
 		else:
 			firstLine = f"Score: {self.score}"
 
