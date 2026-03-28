@@ -27,11 +27,12 @@ class CheeseSpawner:
 				sum += s
 
 		sum /= L
-		return .8 * sum * getScoreBalance(game.score)
+		return sum * getScoreBalance(game.score)
 
 	def update(self, game: Game):
 		help = self.calcFrame(game)
 		print(help)
+
 		self.couldown -= 1 + help
 		if self.couldown > 0:
 			return
